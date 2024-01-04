@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Arquitetura e topologia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Arquitetura e topologia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-menu menuId="first-menu" contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-row>
+        <ion-col  >Nome</ion-col>
+        <ion-col >Descrição</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col  >Arquitetura</ion-col>
+        <ion-col >Apresenta a documentação de arquiteura.</ion-col>
+      </ion-row>
+    </ion-content>
+  </ion-menu>
+  
+  <ion-menu menuId="second-menu" contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Second Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-row>
+        <ion-col  >Nome</ion-col>
+        <ion-col >Descrição</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col >Topologia</ion-col>
+        <ion-col >Apresenta a documentação de topologia.</ion-col>
+      </ion-row>
+    </ion-content>
+  </ion-menu>
+
+
+  <ion-tabs>
+    <!-- Tab bar -->
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="schedule" (click)="openFirstMenu()">
+        <ion-icon name="" aria-hidden="true"></ion-icon>
+        <ion-label>Arquitetura</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="speakers" (click)="openSecondMenu()">
+        <ion-icon name="" aria-hidden="true"></ion-icon>
+        <ion-label>Topologia CDUC</ion-label>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>
+
