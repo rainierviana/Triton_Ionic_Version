@@ -37,3 +37,4 @@ export class SimulacoesETendenciasPage{
     this.menuCtrl.open('end');
   }
 }
+
