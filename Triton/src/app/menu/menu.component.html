@@ -1,0 +1,26 @@
+<ion-app>
+  <ion-router-outlet>
+    <ion-menu contentId="main-content">
+      <ion-content>
+        <br />
+        <ng-container *ngFor="let menuItem of menuData" class="optionList">
+          <span (click)="FillContent(menuItem)">
+            <div>
+              <ion-button fill="clear" class="contentButton" href="/content">{{ menuItem.title }}</ion-button>
+            </div>
+          </span>
+        </ng-container>
+      </ion-content>
+    </ion-menu>
+
+    <ion-content>
+      <p>
+        teste
+      </p>
+    </ion-content>
+
+    <div class="ion-page" id="main-content">
+    </div>
+
+  </ion-router-outlet>
+</ion-app>

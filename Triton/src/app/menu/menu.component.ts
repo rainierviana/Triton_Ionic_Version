@@ -1,0 +1,42 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
+})
+
+export class MenuComponent implements OnInit {
+
+  public menuData: any[] = [];
+
+  constructor(public http: HttpClient) {}
+  
+  ngOnInit() {
+    this.Initialize();
+  }
+
+  Initialize() {
+    this.http.get('assets/data/menumodel.json').subscribe(
+      (data: any) => {
+        this.menuData = data;
+      },
+      (err) => {
+        console.log(
+          'status: ' +
+            err.status +
+            '<br />Status text: ' +
+            err.statusText +
+            '<br />Message: ' +
+            err.message,
+          'danger'
+        );
+      }
+    );
+  }
+
+  FillContent(item: any) {
+    console.log(JSON.stringify('item'));
+  }
+}

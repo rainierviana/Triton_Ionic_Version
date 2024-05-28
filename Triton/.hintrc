@@ -17,6 +17,13 @@
           "meta[name=color-scheme]"
         ]
       }
+    ],
+    "no-inline-styles": "off",
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
     ]
   }
 }
