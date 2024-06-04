@@ -1,7 +1,11 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
+
 .md body {
-  --ion-toolbar-background: linear-gradient(60deg,rgb(0, 79, 159) 40%,rgb(1, 115, 228) 100%); /*cor header*/
+  --ion-toolbar-background: linear-gradient(60deg,rgb(0, 79, 159) 60%,rgb(0, 151, 215) 100%); /*cor header*/
+  --ion-button-color: rgb(0,0,0);
+  --ion-background-color: rgb(230, 240, 244);
 }
+
 

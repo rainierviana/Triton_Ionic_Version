@@ -1,20 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-menu-button slot="start" class="menuButton"></ion-menu-button>
     <div><img src="../../assets/CAIXA_volume_negativa.png" height="20em" /></div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-menu>
-  </app-menu>
+  <ion-menu contentId="main-content">
+    <ion-content>
+      <br />
+      <ng-container *ngFor="let menuItem of menuData" class="optionList">
+        <span (click)="FillContent(menuItem)">
+          <div>
+            <ion-button fill="clear">{{ menuItem.title }}</ion-button>
+          </div>
+        </span>
+      </ng-container>
+    </ion-content>
+  </ion-menu>
+
+  <div #mainContent class="homeText" id="main-content">
+    <p class="mainHomeText">Portal CDUC</p>
+    <p class="mainHomeText">(Capacidade, Desempenho, Uso e Custo)</p>
+    <br />  
+    <p class="paragraph">Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA</p><br> 
+  </div>
 </ion-content>
 
-
-
-
-
-
-
-
+<ion-footer class="footer">
+  <ion-toolbar>
+    <p style="color: rgb(255,255,255);">CAIXA ECONÔMICA FEDERAL - CNPJ 00.360.305/0001-04. SBS QUADRA 4 LT 3/4, ASA SUL - CEP 70.070-140 BRASILIA - DF</p>
+  </ion-toolbar>
+</ion-footer>  
 

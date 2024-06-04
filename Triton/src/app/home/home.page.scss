@@ -68,5 +68,32 @@
 }
 
 .homeText{
+    color: rgb(0, 79, 159);
     text-align: center;
+    font-size: 22px;
+    padding-top: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.footer{
+  text-align: center;
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+}
+
+.paragraph{
+  color: rgb(0, 79, 159);
+  font-size: 19px;
+  padding-left: 10em;
+  padding-right: 10em;
+}
+
+.mainHomeText{
+  font-size: 30px;
+}
+
+ion-button {
+  --color: rgb(0, 79, 159);
+  --ripple-color: rgb(239, 125, 0);
 }
