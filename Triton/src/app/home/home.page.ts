@@ -10,7 +10,7 @@ export class HomePage {
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
   public menuData: any[] = [];
 
-  constructor(public http:HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   ngOnInit() {
     this.Initialize();
@@ -24,24 +24,24 @@ export class HomePage {
       (err) => {
         console.log(
           'status: ' +
-            err.status +
-            '<br />Status text: ' +
-            err.statusText +
-            '<br />Message: ' +
-            err.message,
+          err.status +
+          '<br />Status text: ' +
+          err.statusText +
+          '<br />Message: ' +
+          err.message,
           'danger'
         );
       }
     );
   }
 
-  FillContent(item:any) {
+  FillContent(item: any) {
     console.log(JSON.stringify(item))
     this.mainContent.nativeElement.innerHTML = '';
 
     const newContent = document.createElement('p');
     newContent.textContent = item.title;
-    this.mainContent.nativeElement.appendChild(newContent);  
+    this.mainContent.nativeElement.appendChild(newContent);
 
     const newTable = document.createElement('p');
     newTable.textContent = item.description;

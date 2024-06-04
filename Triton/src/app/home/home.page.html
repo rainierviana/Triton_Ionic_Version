@@ -12,7 +12,7 @@
       <ng-container *ngFor="let menuItem of menuData" class="optionList">
         <span (click)="FillContent(menuItem)">
           <div>
-            <ion-button fill="clear" class="contentButton">{{ menuItem.title }}</ion-button>
+            <ion-button fill="clear">{{ menuItem.title }}</ion-button>
           </div>
         </span>
       </ng-container>
@@ -20,15 +20,16 @@
   </ion-menu>
 
   <div #mainContent class="homeText" id="main-content">
-    Portal CDUC<br>
-    (Capacidade, Desempenho, Uso e Custo)<br>
-    Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA<br> 
+    <p class="mainHomeText">Portal CDUC</p>
+    <p class="mainHomeText">(Capacidade, Desempenho, Uso e Custo)</p>
+    <br />  
+    <p class="paragraph">Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA</p><br> 
   </div>
 </ion-content>
 
 <ion-footer class="footer">
   <ion-toolbar>
-    CAIXA ECONÔMICA FEDERAL - CNPJ 00.360.305/0001-04. SBS QUADRA 4 LT 3/4, ASA SUL - CEP 70.070-140 BRASILIA - DF
+    <p style="color: rgb(255,255,255);">CAIXA ECONÔMICA FEDERAL - CNPJ 00.360.305/0001-04. SBS QUADRA 4 LT 3/4, ASA SUL - CEP 70.070-140 BRASILIA - DF</p>
   </ion-toolbar>
-</ion-footer> 
+</ion-footer>  
 
