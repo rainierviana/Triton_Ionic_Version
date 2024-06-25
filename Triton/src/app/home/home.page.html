@@ -2,6 +2,7 @@
   <ion-toolbar>
     <ion-menu-button slot="start" class="menuButton"></ion-menu-button>
     <div><img src="../../assets/CAIXA_volume_negativa.png" height="20em" /></div>
+    <ion-menu-button class="menuButton" fill="clear" slot="end" (click)="openEndMenu()"><ion-icon name="settings-outline"></ion-icon></ion-menu-button>
   </ion-toolbar>
 </ion-header>
 
@@ -26,6 +27,10 @@
     <p class="paragraph">Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA</p><br> 
   </div>
 </ion-content>
+
+<ion-menu side="end" contentId="main-content">
+  <ion-content class="ion-padding">This is the end menu content.</ion-content>
+</ion-menu>
 
 <ion-footer class="footer">
   <ion-toolbar>
