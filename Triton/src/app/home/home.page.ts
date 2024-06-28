@@ -12,7 +12,7 @@ export class HomePage {
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
   public menuData: any[] = [];
 
-  constructor(public http: HttpClient, private menuCtrl: MenuController) { }
+  constructor(public http: HttpClient, private menuCtrl: MenuController) {}
 
   ngOnInit() {
     this.Initialize();
@@ -25,31 +25,58 @@ export class HomePage {
       },
       (err) => {
         console.log(
-          'status: ' + err.status + '<br />Status text: ' + err.statusText + '<br />Message: ' + err.message, 'danger'
+          'status: ' +
+            err.status +
+            '<br />Status text: ' +
+            err.statusText +
+            '<br />Message: ' +
+            err.message,
+          'danger'
         );
       }
     );
   }
 
   FillContent(item: any) {
-    console.log(JSON.stringify(item))
     this.mainContent.nativeElement.innerHTML = '';
-
-    const newContent = document.createElement('p');
-    newContent.textContent = item.title;
-    this.mainContent.nativeElement.appendChild(newContent);
-
-    if (item.childrens && item.childrens.length > 0) {
-      const childrensList = document.createElement('p');
-      item.childrens.forEach((subItem: any) => {
-        const listItem = document.createElement('p');
-        listItem.textContent = subItem.title;
-        childrensList.appendChild(listItem);
-      });
-      this.mainContent.nativeElement.appendChild(childrensList);
-    }
+    this.renderItem(item, this.mainContent.nativeElement);
   }
 
+  renderItem(item: any, parentElement: HTMLElement) {
+
+    const newContent = document.createElement('div');
+
+    const link = document.createElement('a');
+    link.style.textDecoration = 'none';
+    link.style.color = 'rgb(0,79,159)';
+    link.href = item.url;
+    link.textContent = item.title;
+
+    const description = document.createElement('p');
+    description.textContent = item.description;
+    newContent.appendChild(link);
+    newContent.appendChild(description);
+    parentElement.appendChild(newContent);
+
+    if (item.childrens && item.childrens.length > 0) {
+      const childTable = document.createElement('table');
+      item.childrens.forEach((subItem: any) => {
+        console.log(JSON.stringify(subItem));
+        const childRow = document.createElement('tr');
+        const childCol1 = document.createElement('td');
+        childCol1.textContent = subItem.title;
+        const childCol2 = document.createElement('td');
+        childCol2.textContent = subItem.description;
+
+        childRow.appendChild(childCol1);
+        childRow.appendChild(childCol2);
+        childTable.appendChild(childRow);
+      });
+      
+      parentElement.appendChild(childTable);
+    }
+  }
+  
   openEndMenu() {
     this.menuCtrl.open('end');
   }

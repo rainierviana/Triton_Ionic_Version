@@ -63,36 +63,46 @@
   cursor: default;
 }
 
-.menuButton{
+.menuButton {
   color: rgb(255, 255, 255);
 }
 
-.homeText{
-    color: rgb(0, 79, 159);
-    text-align: center;
-    font-size: 22px;
-    padding-top: 0.5em;
-    padding-left: 2em;
-    padding-right: 2em;
+.homeText {
+  color: rgb(0, 79, 159);
+  text-align: center;
+  font-size: 22px;
+  padding-top: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
+  // -webkit-touch-callout: none;
+  // -webkit-user-select: none;
+  // -khtml-user-select: none;
+  // -moz-user-select: none;
+  // -ms-user-select: none;
+  // user-select: none;
 }
 
-.footer{
+.footer {
   text-align: center;
   font-size: 14px;
   color: rgb(255, 255, 255);
 }
 
-.paragraph{
+.paragraph {
   color: rgb(0, 79, 159);
   font-size: 19px;
   padding-left: 10em;
   padding-right: 10em;
 }
 
-.mainHomeText{
+.mainHomeText {
   font-size: 30px;
 }
 
 ion-button {
   --color: rgb(0, 79, 159);
+}
+
+.homeButton{
+  color: rgb(239, 125, 0);
 }
