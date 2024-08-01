@@ -10,11 +10,17 @@ import { MenuController } from '@ionic/angular';
 export class HomePage {
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
   public menuData: any[] = [];
+  private navigationStack: any[] = [];
+  private forwardStack: any[] = [];
+  showBackButton: boolean = false;
+  showForwardButton: boolean = false;
+  private initialMainContent: string = '';
 
   constructor(public http: HttpClient, private menuCtrl: MenuController) {}
 
   ngOnInit() {
     this.Initialize();
+    this.initialMainContent = this.mainContent.nativeElement.innerHTML;
   }
 
   Initialize() {
@@ -37,8 +43,12 @@ export class HomePage {
   }
 
   FillContent(item: any) {
+    this.navigationStack.push(item);
+    this.forwardStack = [];
     this.mainContent.nativeElement.innerHTML = '';
     this.renderItem(item, this.mainContent.nativeElement);
+    this.showBackButton = true;
+    this.showForwardButton = false;
   }
 
   renderItem(item: any, parentElement: HTMLElement) {
@@ -47,9 +57,9 @@ export class HomePage {
     const link = document.createElement('p');
     link.textContent = item.title;
     link.style.textDecoration = 'none';
-    link.style.cursor = 'pointer'; 
+    link.style.cursor = 'pointer';
     link.style.textAlign = 'left';
-    link.addEventListener('click', () => this.handleItemClick(item)); 
+    link.addEventListener('click', () => this.handleItemClick(item));
 
     const description = document.createElement('p');
     description.textContent = item.description;
@@ -76,7 +86,7 @@ export class HomePage {
         childUrl.style.textAlign = 'left';
         childCol1.style.marginLeft = '2em';
         childCol1.style.textAlign = 'center';
-        
+
         if (!subItem.url) {
           childUrl.style.cursor = 'pointer';
           childUrl.addEventListener('click', (event) => {
@@ -108,6 +118,43 @@ export class HomePage {
     } else if (item.childrens && item.childrens.length > 0) {
       this.FillContent(item);
     }
+  }
+
+  goBack() {
+    if (this.navigationStack.length > 1) {
+      this.forwardStack.push(this.navigationStack.pop()!); // Move the current item to the forward stack
+      const previousItem = this.navigationStack[this.navigationStack.length - 1];
+      this.mainContent.nativeElement.innerHTML = '';
+      this.renderItem(previousItem, this.mainContent.nativeElement);
+      this.showBackButton = this.navigationStack.length > 1; // Show back button if there's a history
+      this.showForwardButton = true; // Show forward button
+    } else {
+      // If the navigation stack is empty or has only one item, show the initial content
+      this.mainContent.nativeElement.innerHTML = this.initialMainContent;
+      this.navigationStack = []; // Reset the navigation stack
+      this.forwardStack = []; // Clear the forward stack
+      this.showBackButton = false;
+      this.showForwardButton = false; // Hide forward button
+    }
+  }
+
+  goForward() {
+    if (this.forwardStack.length > 0) {
+      const nextItem = this.forwardStack.pop()!;
+      this.navigationStack.push(nextItem);
+      this.mainContent.nativeElement.innerHTML = '';
+      this.renderItem(nextItem, this.mainContent.nativeElement);
+      this.showBackButton = true;
+      this.showForwardButton = this.forwardStack.length > 0;
+    }
+  }
+
+  goHome() {
+    this.navigationStack = [];
+    this.forwardStack = [];
+    this.mainContent.nativeElement.innerHTML = this.initialMainContent;
+    this.showBackButton = false;
+    this.showForwardButton = false;
   }
 
   openEndMenu() {
