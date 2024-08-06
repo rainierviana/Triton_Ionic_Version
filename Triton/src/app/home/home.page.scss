@@ -28,7 +28,6 @@
 }
 
 .menuText {
-  color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
@@ -36,23 +35,18 @@
   margin-top: 2em;
   width: 90%;
   font-size: 18px;
+  color: var(--content-table-text); /* Use the custom property for text color */
 }
 
 #contentTable th,
 #contentTable td {
+  color: var(--content-table-text); /* Use the custom property for text color */
   text-align: left;
   padding: 12px;
 }
 
 #contentTable tr {
-  background-color: rgb(209, 211, 212);
   border-radius: 2em 2em 2em 2em;
-}
-
-#contentTable tr.header {
-  background-color: rgb(239, 125, 0);
-  color: rgb(255, 255, 255);
-  cursor: default;
 }
 
 .itemText {
@@ -74,6 +68,10 @@
   padding-top: 0.5em;
   padding-left: 2em;
   padding-right: 2em;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 .footer {
@@ -95,14 +93,46 @@ ion-button {
   --color: rgb(0, 79, 159);
 }
 
-.homeButton {
-  color: rgb(239, 125, 0);
-}
-
 .backButton {
-  font-size: 20px;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(239, 125, 0);
 }
 
 .forwardButton {
-  font-size: 20px;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(239, 125, 0);
 }
+
+.config {
+  color: rgb(239, 125, 0);
+}
+
+/* Custom styles for ion-toggle switch */
+ion-toggle {
+  --handle-background: #ffffff; /* Handle color */
+  --handle-border-radius: 50%; /* Circular handle */
+  --handle-width: 24px; /* Handle width */
+  --handle-height: 24px; /* Handle height */
+  --track-background: #000000; /* Track color */
+  --track-border-radius: 20px; /* Track border radius */
+  --track-height: 12px; /* Track height */
+  --track-width: 50px; /* Track width */
+}
+
+/* Custom styles when toggle is checked */
+ion-toggle.ion-checked {
+  --handle-background: #000000; /* Handle color when checked */
+  --track-background: #ffffff; /* Track color when checked */
+}
+
+/* Ensure that the toggle has a consistent appearance */
+ion-toggle .toggle-icon {
+  display: none; /* Hide default icons if needed */
+}
+

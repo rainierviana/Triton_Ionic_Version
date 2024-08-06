@@ -67,3 +67,25 @@
 .margin-large {
   margin: var(--margin-large);
 }
+
+/* global.scss */
+
+body {
+  background-color: var(--ion-background-color);
+}
+
+table {
+  background-color: var(--table-background);
+}
+
+th {
+  background-color: var(--table-header-background);
+}
+
+ion-button {
+  color: var(--ion-button-color);
+}
+
+p, span {
+  color: var(--text-color);
+}

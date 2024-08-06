@@ -2,10 +2,41 @@
 // http://ionicframework.com/docs/theming/
 
 
-.md body {
-  --ion-toolbar-background: linear-gradient(60deg,rgb(0, 79, 159) 60%,rgb(0, 151, 215) 100%); /*cor header*/
-  --ion-button-color: rgb(0,0,0);
+
+:root {
   --ion-background-color: rgb(246, 246, 246);
+  --ion-toolbar-background: rgb(0, 79, 159);
+  --ion-button-color: rgb(0, 79, 159);
+  --table-background: rgb(208,224,227);
+  --text-color: rgb(0, 79, 159);
+  --content-table-text: rgb(0, 79,159); // Light mode text color
 }
 
+.dark-mode {
+  --ion-background-color: rgb(1, 44, 87);
+  --ion-toolbar-background: rgb(0,79,159);
+  --ion-button-color: rgb(255, 255, 255);
+  --table-background: rgb(76,81,82);
+  --text-color: rgb(255, 255, 255);
+  --content-table-text: rgb(255, 255, 255); // Dark mode text color
+}
 
+#contentTable {
+  margin-top: 2em;
+  width: 90%;
+  font-size: 18px;
+  background-color: var(--content-table-bg);
+  color: var(--content-table-text);
+}
+
+#contentTable th,
+#contentTable td {
+  text-align: left;
+  padding: 12px;
+  color: var(--content-table-text);
+}
+
+#contentTable tr {
+  background-color: var(--content-table-bg);
+  border-radius: 2em 2em 2em 2em;
+}
