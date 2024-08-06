@@ -9,7 +9,10 @@
 <ion-content>
   <ion-menu contentId="main-content">
     <ion-content>
-      <ion-button fill="clear" class="homeButton"><ion-icon name="home-outline"></ion-icon></ion-button>
+      <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+      
       <br />
       <ng-container *ngFor="let menuItem of menuData" class="optionList">
         <span (click)="FillContent(menuItem)">
@@ -38,7 +41,7 @@
 
 <ion-menu side="end" contentId="main-content">
   <ion-content class="ion-padding">Configurações
-    <p>Este é um programa que permanece em desenvolvimento. Esta função em breve estará disponível.</p>
+    <p>Este é um programa em fase de desenvolvimento. Esta função estará disponível em breve.</p>
   </ion-content>
 </ion-menu>
 
