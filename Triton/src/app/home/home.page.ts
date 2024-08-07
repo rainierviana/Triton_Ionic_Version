@@ -87,7 +87,8 @@ export class HomePage {
     title.style.cursor = 'default';
     title.style.textAlign = 'left';
     title.style.transition = '0.3s';
-    
+    title.style.fontFamily = 'Futura-Bold';
+
     const description = document.createElement('p');
     description.textContent = item.description;
     description.style.textAlign = 'left';

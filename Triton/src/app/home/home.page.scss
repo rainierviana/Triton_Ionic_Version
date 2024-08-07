@@ -91,6 +91,8 @@
 
 ion-button {
   --color: rgb(0, 79, 159);
+  text-transform: none;
+  font-size: 17px;
 }
 
 .backButton {
@@ -134,5 +136,14 @@ ion-toggle.ion-checked {
 /* Ensure that the toggle has a consistent appearance */
 ion-toggle .toggle-icon {
   display: none; /* Hide default icons if needed */
+}
+
+ // Apply to specific classes if needed
+ .homeText, .footer, .paragraph, ion-button, .config {
+  font-family: 'Futura', sans-serif;
+}
+
+.mainHomeText, #contentTable th, #contentTable td {
+  font-family: 'Futura-Bold', sans-serif;
 }
 
