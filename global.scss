@@ -36,3 +36,20 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 
 
+@font-face {
+    font-family: 'Futura';
+    src: url('assets/Futura/Futura-STD-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Futura-Bold';
+    src: url('assets/Futura/Futura-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  // Add more @font-face rules if you have different styles like bold, italic, etc.
+
+ 
