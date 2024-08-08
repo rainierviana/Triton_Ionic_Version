@@ -9,6 +9,7 @@ import { MenuController } from '@ionic/angular';
 })
 export class HomePage {
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
+
   darkMode = false;
 
   toggleDarkMode(event: any) {
@@ -39,6 +40,8 @@ export class HomePage {
       },
     },
   ];
+
+  public breadcrumbs: string[] = [];  // Breadcrumb array
 
   constructor(public http: HttpClient, private menuCtrl: MenuController) {}
 
@@ -75,6 +78,19 @@ export class HomePage {
     this.renderItem(item, this.mainContent.nativeElement);
     this.showBackButton = true;
     this.showForwardButton = false; // Hide forward button when navigating
+    this.breadcrumbs.push(item.title);  // Add to breadcrumb array
+    const existingIndex = this.breadcrumbs.indexOf(item.title);
+
+    if (existingIndex !== -1) {
+      // Truncate the breadcrumb array to the existing item
+      this.breadcrumbs = this.breadcrumbs.slice(0, existingIndex + 1);
+      // Truncate the navigation stack to the existing item's position
+      this.navigationStack = this.navigationStack.slice(0, existingIndex + 1);
+    } else {
+      // Add the new item to the breadcrumb and navigation stack
+      this.breadcrumbs.push(item.title);
+      this.navigationStack.push(item);
+    }
   }
 
   renderItem(item: any, parentElement: HTMLElement) {
@@ -86,13 +102,13 @@ export class HomePage {
     title.style.textDecoration = 'none';
     title.style.cursor = 'default';
     title.style.textAlign = 'left';
-    title.style.transition = '0.3s';
+    title.style.transition = '0.2s';
     title.style.fontFamily = 'Futura-Bold';
 
     const description = document.createElement('p');
     description.textContent = item.description;
     description.style.textAlign = 'left';
-    description.style.transition = '0.3s';
+    description.style.transition = '0.2s';
     newContent.appendChild(title);
     newContent.appendChild(description);
     parentElement.appendChild(newContent);
@@ -103,7 +119,7 @@ export class HomePage {
       childTable.style.width = '100%';
       childTable.style.marginBottom = '2em';
       childTable.style.color= 'var(--content-table-text)';
-      childTable.style.transition = '0.3s';
+      childTable.style.transition = '0.2s';
     
       item.childrens.forEach((subItem: any) => {
         const childRow = document.createElement('tr');
@@ -145,8 +161,6 @@ export class HomePage {
       parentElement.appendChild(childTable);
     }
   }
-  
-  
 
   handleItemClick(item: any) {
     if (item.url) {
@@ -159,6 +173,7 @@ export class HomePage {
   goBack() {
     if (this.navigationStack.length > 1) {
       this.forwardStack.push(this.navigationStack.pop()!); // Move the current item to the forward stack
+      this.breadcrumbs.pop();  // Remove the last breadcrumb
       const previousItem = this.navigationStack[this.navigationStack.length - 1];
       this.mainContent.nativeElement.innerHTML = '';
       this.renderItem(previousItem, this.mainContent.nativeElement);
@@ -170,6 +185,7 @@ export class HomePage {
       this.mainContent.nativeElement.innerHTML = this.initialMainContent;
       this.navigationStack = []; // Reset the navigation stack
       this.forwardStack = []; // Clear the forward stack
+      this.breadcrumbs = [];  // Reset breadcrumbs
       this.showBackButton = false;
       this.showForwardButton = false; // Hide forward button
     }
@@ -183,6 +199,7 @@ export class HomePage {
       this.renderItem(nextItem, this.mainContent.nativeElement);
       this.showBackButton = true;
       this.showForwardButton = this.forwardStack.length > 0; // Show forward button if there's more history
+      this.breadcrumbs.push(nextItem.title);  // Add to breadcrumb array
     }
   }
 
@@ -192,6 +209,7 @@ export class HomePage {
     this.forwardStack = [];
     this.showBackButton = false;
     this.showForwardButton = false;
+    this.breadcrumbs = [];  // Reset breadcrumbs
   }
   
 

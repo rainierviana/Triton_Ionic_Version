@@ -45,14 +45,17 @@
 }
 
 .padding-small {
+  transition:0.2s;
   padding: var(--padding-small);
 }
 
 .padding-medium {
+  transition:0.2s;
   padding: var(--padding-medium);
 }
 
 .padding-large {
+  transition:0.2s;
   padding: var(--padding-large);
 }
 

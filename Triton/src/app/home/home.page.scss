@@ -81,16 +81,15 @@
 }
 
 .paragraph {
-  color: rgb(0, 79, 159);
   font-size: 19px;
 }
 
 .mainHomeText {
   font-size: 30px;
+  transition: 0.3s;
 }
 
 ion-button {
-  --color: rgb(0, 79, 159);
   text-transform: none;
   font-size: 17px;
 }
@@ -100,7 +99,6 @@ ion-button {
   font-size: 18px;
   margin: 0;
   padding: 0;
-  background-color: rgb(239, 125, 0);
 }
 
 .forwardButton {
@@ -108,7 +106,6 @@ ion-button {
   font-size: 18px;
   margin: 0;
   padding: 0;
-  background-color: rgb(239, 125, 0);
 }
 
 .config {
@@ -146,4 +143,34 @@ ion-toggle .toggle-icon {
 .mainHomeText, #contentTable th, #contentTable td {
   font-family: 'Futura-Bold', sans-serif;
 }
+
+/* Add this CSS to your styles */
+
+.navButtons {
+  margin: 0;
+  background-color: rgb(239, 125, 0);
+  background-image: url('/src/assets/wavy-background.svg'); /* Replace with the path to your wavy background SVG */
+  background-size: cover; /* Cover the entire div */
+  background-repeat: no-repeat; /* Prevent the background from repeating */
+  max-width: 15%;
+  width: 15%; /* Ensure the width is fixed */
+  border-radius: 0em 0em 0em 0em;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  font-family: Futura;
+}
+
+.breadcrumb span, .breadcrumb-separator{
+  margin-right: 0.5em;
+  color: var(--content-table-text);
+  transition: 0.5s;
+}
+
 
