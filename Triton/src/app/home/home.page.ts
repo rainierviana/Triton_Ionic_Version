@@ -80,7 +80,6 @@ export class HomePage {
     this.showForwardButton = false; // Hide forward button when navigating
     this.breadcrumbs.push(item.title);  // Add to breadcrumb array
     const existingIndex = this.breadcrumbs.indexOf(item.title);
-
     if (existingIndex !== -1) {
       // Truncate the breadcrumb array to the existing item
       this.breadcrumbs = this.breadcrumbs.slice(0, existingIndex + 1);
@@ -99,6 +98,7 @@ export class HomePage {
     // Display the title as plain text instead of a clickable link
     const title = document.createElement('p');
     title.textContent = item.title;
+    title.style.margin = '0';
     title.style.textDecoration = 'none';
     title.style.cursor = 'default';
     title.style.textAlign = 'left';
