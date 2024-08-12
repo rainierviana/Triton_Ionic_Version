@@ -30,24 +30,6 @@
   cursor: pointer;
 }
 
-#contentTable {
-  margin-top: 2em;
-  width: 90%;
-  font-size: 18px;
-  color: var(--content-table-text); /* Use the custom property for text color */
-}
-
-#contentTable th,
-#contentTable td {
-  color: var(--content-table-text); /* Use the custom property for text color */
-  text-align: left;
-  padding: 12px;
-}
-
-#contentTable tr {
-  border-radius: 2em 2em 2em 2em;
-}
-
 .itemText {
   cursor: pointer;
 }
@@ -114,20 +96,26 @@ ion-button {
 
 /* Custom styles for ion-toggle switch */
 ion-toggle {
-  --handle-background: #ffffff; /* Handle color */
-  --handle-border-radius: 50%; /* Circular handle */
-  --handle-width: 24px; /* Handle width */
-  --handle-height: 24px; /* Handle height */
-  --track-background: #000000; /* Track color */
-  --track-border-radius: 20px; /* Track border radius */
-  --track-height: 12px; /* Track height */
-  --track-width: 50px; /* Track width */
+  --track-background: #ababab;
+  --track-background-checked: #ddd;
+
+  --handle-background: rgb(239,125,0);
+  --handle-background-checked: rgb(52, 147, 243);
+  --handle-width: 25px;
+  --handle-height: 27px;
+  --handle-max-height: auto;
+  --handle-spacing: 6px;
+
+  --handle-border-radius: 4px;
+  --handle-box-shadow: none;
 }
 
-/* Custom styles when toggle is checked */
-ion-toggle.ion-checked {
-  --handle-background: #000000; /* Handle color when checked */
-  --track-background: #ffffff; /* Track color when checked */
+ion-toggle::part(track) {
+  height: 10px;
+  width: 65px;
+
+  /* Required for iOS handle to overflow the height of the track */
+  overflow: visible;
 }
 
 /* Ensure that the toggle has a consistent appearance */
@@ -157,16 +145,13 @@ ion-toggle .toggle-icon {
   margin: 0;
   background-color: rgb(239, 125, 0);
   background-image: url('/src/assets/wavy-background.svg'); /* Replace with the path to your wavy background SVG */
-  background-size: cover; /* Cover the entire div */
-  background-repeat: no-repeat; /* Prevent the background from repeating */
   max-width: 15%;
-  width: 15%; /* Ensure the width is fixed */
-  border-radius: 0em 0em 0em 0em;
+  width: 112px; /* Ensure the width is fixed */
+  border-radius: 0em 5em 5em 0em;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center; /* Align items vertically */
-  /* Other styling properties */
 }
 
 
@@ -192,4 +177,10 @@ ion-toggle .toggle-icon {
   transition: 0.5s;
 }
 
-
+.searchBar{
+  color: rgb(0, 79, 159);
+  background-color: rgb(255, 255, 255);
+  border: 0;
+  font-size: 14px;
+  border-radius: 3em;
+}

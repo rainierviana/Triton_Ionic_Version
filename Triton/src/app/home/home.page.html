@@ -1,13 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start" class="menuButton"></ion-menu-button>
-    <div><img src="../../assets/CAIXA_volume_negativa.png" height="20em" /></div>
+    <div><img src="../../assets/Images/CAIXA_volume_negativa.png" height="20em" /></div>
     <ion-menu-button class="menuButton" fill="clear" slot="end" (click)="openEndMenu()"><ion-icon
         name="settings-outline"></ion-icon></ion-menu-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
   <ion-menu contentId="main-content">
     <ion-content>
       <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()"><ion-icon
@@ -20,7 +21,8 @@
       </ng-container>
     </ion-content>
   </ion-menu>
-
+  
+  
   <div class="nav-container">
     <div class="breadcrumb" *ngIf="breadcrumbs.length > 0">
       <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
@@ -40,7 +42,8 @@
     </div>
   </div>
   
-
+  <input class="searchBar" type="text" id="searchInput" placeholder="Pesquisar" (input)="filterTable()">
+  
   <div #mainContent class="homeText" id="main-content">
     <p class="mainHomeText">Portal CDUC</p>
     <p class="mainHomeText">(Capacidade, Desempenho, Uso e Custo)</p>
