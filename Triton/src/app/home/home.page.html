@@ -1,18 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start" class="menuButton"></ion-menu-button>
-    <div><img src="../../assets/Images/CAIXA_volume_negativa.png" height="20em" /></div>
-    <ion-menu-button class="menuButton" fill="clear" slot="end" (click)="openEndMenu()"><ion-icon
-        name="settings-outline"></ion-icon></ion-menu-button>
+    <div>
+      <img src="../../assets/Images/CAIXA_volume_negativa.png" height="20em" />
+    </div>
+    <ion-menu-button class="menuButton" fill="clear" slot="end" (click)="openEndMenu()"><ion-icon name="settings-outline"></ion-icon></ion-menu-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-menu contentId="main-content">
     <ion-content>
-      <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()"><ion-icon
-          name="home-outline"></ion-icon></ion-button>
+      <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()"
+        ><ion-icon name="home-outline"></ion-icon></ion-button>
       <br />
       <ng-container *ngFor="let menuItem of menuData" class="optionList">
         <span (click)="FillContent(menuItem)">
@@ -21,8 +21,7 @@
       </ng-container>
     </ion-content>
   </ion-menu>
-  
-  
+
   <div class="nav-container">
     <div class="breadcrumb" *ngIf="breadcrumbs.length > 0">
       <ng-container *ngFor="let breadcrumb of breadcrumbs; let i = index">
@@ -32,22 +31,27 @@
         </ng-container>
       </ng-container>
     </div>
+
     <div class="navButtons">
-      <ion-button class="backButton" *ngIf="showBackButton" fill="clear" shape="round" (click)="goBack()">
-        <ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon>
-      </ion-button>
-      <ion-button class="forwardButton" *ngIf="showForwardButton" fill="clear" shape="round" (click)="goForward()">
-        <ion-icon slot="icon-only" name="arrow-forward-circle-outline"></ion-icon>
-      </ion-button>
+      <ion-button class="backButton" *ngIf="showBackButton" fill="clear" shape="round" (click)="goBack()"><ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon></ion-button>
+      <ion-button class="forwardButton"  *ngIf="showForwardButton" fill="clear" shape="round" (click)="goForward()"><ion-icon slot="icon-only" name="arrow-forward-circle-outline"></ion-icon></ion-button>
     </div>
   </div>
   
-  <input class="searchBar" type="text" id="searchInput" placeholder="Pesquisar" (input)="filterTable()">
+  <div *ngIf="showSearchBar" class="search-bar-container">
+    <input class="searchBar" autocomplete="off" type="text" id="searchInput" placeholder="Pesquisar" (input)="filterTable()"/>
+  </div>
   
   <div #mainContent class="homeText" id="main-content">
     <p class="mainHomeText">Portal CDUC</p>
     <p class="mainHomeText">(Capacidade, Desempenho, Uso e Custo)</p>
-    <p class="padding-small margin-large">Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA</p><br>
+    <p class="padding-small margin-large">Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA
+    </p>
+    <br />
+  </div>
+  
+  <div *ngIf="noItemsFound" class="no-items-message">
+    <p class="errorMessage">Nenhum Resultado Encontrado</p>
   </div>
 </ion-content>
 
@@ -64,7 +68,9 @@
 
 <ion-footer class="footer">
   <ion-toolbar>
-    <p style="color: rgb(255,255,255);">CAIXA ECONÔMICA FEDERAL - CNPJ 00.360.305/0001-04. SBS QUADRA 4 LT 3/4, ASA SUL
-      - CEP 70.070-140 BRASILIA - DF</p>
+    <p style="color: rgb(255, 255, 255)">
+      CAIXA ECONÔMICA FEDERAL - CNPJ 00.360.305/0001-04. SBS QUADRA 4 LT 3/4,
+      ASA SUL - CEP 70.070-140 BRASILIA - DF
+    </p>
   </ion-toolbar>
 </ion-footer>

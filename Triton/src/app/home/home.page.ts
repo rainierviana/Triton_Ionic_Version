@@ -10,6 +10,9 @@ import { MenuController } from '@ionic/angular';
 export class HomePage {
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
 
+  searchTerm: string = ''; // To track the current search term
+  noItemsFound: boolean = false; // Flag to show or hide the "No items found" message
+  filteredData: any[] = []; // Array to store the filtered content table data
   darkMode = false;
 
   toggleDarkMode(event: any) {
@@ -25,7 +28,7 @@ export class HomePage {
   private forwardStack: any[] = []; // Stack to keep track of forward navigation
   showBackButton: boolean = false;
   showForwardButton: boolean = false; // Flag to control forward button visibility
-
+  showSearchBar: boolean = false;
   private initialMainContent: string = '';
 
   public actionSheetButtons = [
@@ -45,7 +48,7 @@ export class HomePage {
 
   public breadcrumbs: string[] = [];  // Breadcrumb array
 
-  constructor(public http: HttpClient, private menuCtrl: MenuController) {}
+  constructor(public http: HttpClient, private menuCtrl: MenuController) { }
 
   ngOnInit() {
     this.Initialize();
@@ -78,7 +81,9 @@ export class HomePage {
     const input = (document.getElementById('searchInput') as HTMLInputElement).value.toLowerCase();
     const table = document.querySelector('table')!;
     const tr = table.getElementsByTagName('tr');
+    const searchInput = (document.getElementById('searchInput') as HTMLInputElement).value.toLowerCase();
   
+
     for (let i = 0; i < tr.length; i++) {
       const td = tr[i].getElementsByTagName('td')[0]; // Assuming the first column is the title
       if (td) {
@@ -89,11 +94,30 @@ export class HomePage {
         } else {
           tr[i].style.display = 'none';
         }
-      }       
+      }
     }
+
+    if (!searchInput) {
+      // Reset to original data when input is cleared
+      this.filteredData = this.menuData;
+      this.noItemsFound = false;
+      return;
+    }
+  
+    // Filter data based on search input
+    this.filteredData = this.menuData.filter(item =>
+      item.title.toLowerCase().includes(searchInput) ||
+      item.description.toLowerCase().includes(searchInput)
+    );
+  
+    // Show 'No items found' message if no results are found
+    this.noItemsFound = this.filteredData.length === 0;
   }
 
+
   FillContent(item: any) {
+    this.showSearchBar = !item.url;
+
     this.navigationStack.push(item); // Push the current item to the stack
     this.forwardStack = []; // Clear the forward stack when navigating to a new item
     this.mainContent.nativeElement.innerHTML = '';
@@ -124,78 +148,76 @@ export class HomePage {
     title.style.textDecoration = 'none';
     title.style.cursor = 'default';
     title.style.textAlign = 'left';
-    title.style.transition = '0.2s';
     title.style.fontFamily = 'Futura-Bold';
 
     const description = document.createElement('p');
     description.textContent = item.description;
     description.style.textAlign = 'left';
-    description.style.transition = '0.2s';
     newContent.appendChild(title);
     newContent.appendChild(description);
     parentElement.appendChild(newContent);
 
     if (item.childrens && item.childrens.length > 0) {
-        const childTable = document.createElement('table');
-        childTable.style.borderRadius = '1em';
-        childTable.style.width = '100%';
-        childTable.style.color = 'var(--content-table-text)';
-        childTable.style.transition = '0.2s';
-        childTable.style.overflowY = 'auto'; // Enable vertical scrolling
-        childTable.style.display = 'block'; // Ensure the table is displayed as a block element
+      const childTable = document.createElement('table');
+      childTable.style.borderRadius = '1em';
+      childTable.style.width = '100%';
+      childTable.style.color = 'var(--content-table-text)';
+      childTable.style.transition = '0.2s';
+      childTable.style.overflowY = 'auto'; // Enable vertical scrolling
+      childTable.style.display = 'block'; // Ensure the table is displayed as a block element
 
-        // Set a dynamic height for the table based on the screen size
-        const tableHeight = window.innerHeight * 0.5; // 50% of the viewport height
-        childTable.style.maxHeight = `${tableHeight}px`; // Set max height
+      // Set a dynamic height for the table based on the screen size
+      const tableHeight = window.innerHeight * 0.5; // 50% of the viewport height
+      childTable.style.maxHeight = `${tableHeight}px`; // Set max height
 
-        // Add a wrapper div around the table to handle scrolling
-        const tableWrapper = document.createElement('div');
-        tableWrapper.style.maxHeight = `${tableHeight}px`;
-        tableWrapper.style.overflowY = 'auto';
-        tableWrapper.style.overflowX = 'hidden'; // Hide horizontal scrollbar
-        tableWrapper.style.display = 'block'; // Ensure wrapper is a block element
-        tableWrapper.appendChild(childTable);
+      // Add a wrapper div around the table to handle scrolling
+      const tableWrapper = document.createElement('div');
+      tableWrapper.style.maxHeight = `${tableHeight}px`;
+      tableWrapper.style.overflowY = 'auto';
+      tableWrapper.style.overflowX = 'hidden'; // Hide horizontal scrollbar
+      tableWrapper.style.display = 'block'; // Ensure wrapper is a block element
+      tableWrapper.appendChild(childTable);
 
-        item.childrens.forEach((subItem: any) => {
-            const childRow = document.createElement('tr');
+      item.childrens.forEach((subItem: any) => {
+        const childRow = document.createElement('tr');
 
-            const childCol1 = document.createElement('td');
-            const childUrl = document.createElement('a');
-            childUrl.href = subItem.url;
-            childUrl.textContent = subItem.title;
-            childUrl.style.textDecoration = 'none';
-            childUrl.style.color = childTable.style.color;
-            childUrl.style.textAlign = 'left';
-            childCol1.style.textAlign = 'left';
-            childCol1.style.paddingLeft = '1.5em';
+        const childCol1 = document.createElement('td');
+        const childUrl = document.createElement('a');
+        childUrl.href = subItem.url;
+        childUrl.textContent = subItem.title;
+        childUrl.style.textDecoration = 'none';
+        childUrl.style.color = childTable.style.color;
+        childUrl.style.textAlign = 'left';
+        childCol1.style.textAlign = 'left';
+        childCol1.style.paddingLeft = '1.5em';
 
-            if (!subItem.url) {
-                childUrl.style.cursor = 'pointer';
-                childUrl.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    this.FillContent(subItem);
-                });
-                childCol1.style.paddingBottom = '1em';
-                childCol1.style.paddingTop = '1em';
-            }
+        if (!subItem.url) {
+          childUrl.style.cursor = 'pointer';
+          childUrl.addEventListener('click', (event) => {
+            event.preventDefault();
+            this.FillContent(subItem);
+          });
+          childCol1.style.paddingBottom = '1em';
+          childCol1.style.paddingTop = '1em';
+        }
 
-            childCol1.appendChild(childUrl);
+        childCol1.appendChild(childUrl);
 
-            const childCol2 = document.createElement('td');
-            childCol2.textContent = subItem.description;
-            childCol2.style.padding = '1em';
-            childCol2.style.cursor = 'default';
-            childCol2.style.textAlign = 'left';
+        const childCol2 = document.createElement('td');
+        childCol2.textContent = subItem.description;
+        childCol2.style.padding = '1em';
+        childCol2.style.cursor = 'default';
+        childCol2.style.textAlign = 'left';
 
-            childRow.appendChild(childCol1);
-            childRow.appendChild(childCol2);
+        childRow.appendChild(childCol1);
+        childRow.appendChild(childCol2);
 
-            childTable.appendChild(childRow);
-        });
+        childTable.appendChild(childRow);
+      });
 
-        parentElement.appendChild(tableWrapper);
+      parentElement.appendChild(tableWrapper);
     }
-}
+  }
 
 
   handleItemClick(item: any) {
@@ -216,6 +238,7 @@ export class HomePage {
       this.showBackButton = this.navigationStack.length > 1; // Show back button if there's a history
       this.showBackButton = true;
       this.showForwardButton = true; // Show forward button
+      this.noItemsFound = false;
     } else {
       // If the navigation stack is empty or has only one item, show the initial content
       this.mainContent.nativeElement.innerHTML = this.initialMainContent;
@@ -224,6 +247,8 @@ export class HomePage {
       this.breadcrumbs = [];  // Reset breadcrumbs
       this.showBackButton = false;
       this.showForwardButton = false; // Hide forward button
+      this.showSearchBar = false;
+      this.noItemsFound = false;
     }
   }
 
@@ -246,6 +271,9 @@ export class HomePage {
     this.showBackButton = false;
     this.showForwardButton = false;
     this.breadcrumbs = [];  // Reset breadcrumbs
+    this.showSearchBar = false;
+    this.noItemsFound = false;
+    this.filteredData = [];
   }
 
 
