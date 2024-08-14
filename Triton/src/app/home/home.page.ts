@@ -8,47 +8,35 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  // References
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
 
-  searchTerm: string = ''; // To track the current search term
-  noItemsFound: boolean = false; // Flag to show or hide the "No items found" message
-  filteredData: any[] = []; // Array to store the filtered content table data
+  // State Variables
+  searchTerm: string = '';
+  noItemsFound: boolean = false;
   darkMode = false;
-
-  toggleDarkMode(event: any) {
-    this.darkMode = event.detail.checked;
-    document.body.classList.toggle('dark-mode', this.darkMode);
-  }
-  public menuData: any[] = [];
-
-  public filteredMenuData: any[] = []; // Filtered data for display
-
-  private navigationStack: any[] = [];
-
-  private forwardStack: any[] = []; // Stack to keep track of forward navigation
   showBackButton: boolean = false;
-  showForwardButton: boolean = false; // Flag to control forward button visibility
+  showForwardButton: boolean = false;
   showSearchBar: boolean = false;
-  private initialMainContent: string = '';
 
+  // Data Management
+  public menuData: any[] = [];
+  public filteredData: any[] = [];
+  public filteredMenuData: any[] = [];
+
+  // Navigation Management
+  private navigationStack: any[] = [];
+  private forwardStack: any[] = [];
+  private initialMainContent: string = '';
+  public breadcrumbs: string[] = [];
+
+  // Action Sheet Options
   public actionSheetButtons = [
-    {
-      text: 'Português',
-      data: {
-        action: 'delete',
-      },
-    },
-    {
-      text: 'English',
-      data: {
-        action: 'share',
-      },
-    },
+    { text: 'Português', data: { action: 'delete' } },
+    { text: 'English', data: { action: 'share' } },
   ];
 
-  public breadcrumbs: string[] = [];  // Breadcrumb array
-
-  constructor(public http: HttpClient, private menuCtrl: MenuController) { }
+  constructor(public http: HttpClient, private menuCtrl: MenuController) {}
 
   ngOnInit() {
     this.Initialize();
@@ -64,75 +52,61 @@ export class HomePage {
         this.filteredMenuData = data; // Initialize filtered data
       },
       (err) => {
-        console.log(
-          'status: ' +
-          err.status +
-          '<br />Status text: ' +
-          err.statusText +
-          '<br />Message: ' +
-          err.message,
-          'danger'
+        console.error(
+          `status: ${err.status}, Status text: ${err.statusText}, Message: ${err.message}`
         );
       }
     );
   }
 
+  // Dark Mode Toggle
+  toggleDarkMode(event: any) {
+    this.darkMode = event.detail.checked;
+    document.body.classList.toggle('dark-mode', this.darkMode);
+  }
+
+  // search bar filtering functionality
   filterTable() {
-    const input = (document.getElementById('searchInput') as HTMLInputElement).value.toLowerCase();
+    const searchInput = (document.getElementById('searchInput') as HTMLInputElement).value.toLowerCase();
     const table = document.querySelector('table')!;
     const tr = table.getElementsByTagName('tr');
-    const searchInput = (document.getElementById('searchInput') as HTMLInputElement).value.toLowerCase();
+    let anyVisible = false;
   
-
     for (let i = 0; i < tr.length; i++) {
-      const td = tr[i].getElementsByTagName('td')[0]; // Assuming the first column is the title
+      const td = tr[i].getElementsByTagName('td')[0];
       if (td) {
         const txtValue = td.textContent || td.innerText;
-        const hasUrl = tr[i].querySelector('a') !== null; // Check if there's a URL in the row
-        if (txtValue.toLowerCase().indexOf(input) > -1 && hasUrl) {
-          tr[i].style.display = '';
+        const hasUrl = tr[i].querySelector('a') !== null;
+        if (txtValue.toLowerCase().indexOf(searchInput) > -1 && hasUrl) {
+          tr[i].style.display = ''; // Show the row
+          anyVisible = true;
         } else {
-          tr[i].style.display = 'none';
+          tr[i].style.display = 'none'; // Hide the row
         }
       }
     }
-
-    if (!searchInput) {
-      // Reset to original data when input is cleared
-      this.filteredData = this.menuData;
-      this.noItemsFound = false;
-      return;
-    }
   
-    // Filter data based on search input
-    this.filteredData = this.menuData.filter(item =>
-      item.title.toLowerCase().includes(searchInput) ||
-      item.description.toLowerCase().includes(searchInput)
-    );
-  
-    // Show 'No items found' message if no results are found
-    this.noItemsFound = this.filteredData.length === 0;
-  }
+    // If no rows are visible, show the error message
+    this.noItemsFound = !anyVisible;
+  } 
 
-
+  // Content Management
   FillContent(item: any) {
     this.showSearchBar = !item.url;
 
-    this.navigationStack.push(item); // Push the current item to the stack
-    this.forwardStack = []; // Clear the forward stack when navigating to a new item
+    this.navigationStack.push(item);
+    this.forwardStack = [];
     this.mainContent.nativeElement.innerHTML = '';
     this.renderItem(item, this.mainContent.nativeElement);
     this.showBackButton = true;
-    this.showForwardButton = false; // Hide forward button when navigating
-    this.breadcrumbs.push(item.title);  // Add to breadcrumb array
+    this.showForwardButton = false;
+    this.breadcrumbs.push(item.title);
+
     const existingIndex = this.breadcrumbs.indexOf(item.title);
     if (existingIndex !== -1) {
-      // Truncate the breadcrumb array to the existing item
       this.breadcrumbs = this.breadcrumbs.slice(0, existingIndex + 1);
-      // Truncate the navigation stack to the existing item's position
       this.navigationStack = this.navigationStack.slice(0, existingIndex + 1);
     } else {
-      // Add the new item to the breadcrumb and navigation stack
       this.breadcrumbs.push(item.title);
       this.navigationStack.push(item);
     }
@@ -141,20 +115,17 @@ export class HomePage {
   renderItem(item: any, parentElement: HTMLElement) {
     const newContent = document.createElement('div');
 
-    // Display the title as plain text instead of a clickable link
     const title = document.createElement('p');
     title.textContent = item.title;
     title.style.margin = '0';
+    title.style.paddingTop = '0.5em';
+    title.style.paddingBottom = '1em';
     title.style.textDecoration = 'none';
     title.style.cursor = 'default';
     title.style.textAlign = 'left';
     title.style.fontFamily = 'Futura-Bold';
 
-    const description = document.createElement('p');
-    description.textContent = item.description;
-    description.style.textAlign = 'left';
     newContent.appendChild(title);
-    newContent.appendChild(description);
     parentElement.appendChild(newContent);
 
     if (item.childrens && item.childrens.length > 0) {
@@ -163,19 +134,17 @@ export class HomePage {
       childTable.style.width = '100%';
       childTable.style.color = 'var(--content-table-text)';
       childTable.style.transition = '0.2s';
-      childTable.style.overflowY = 'auto'; // Enable vertical scrolling
-      childTable.style.display = 'block'; // Ensure the table is displayed as a block element
+      childTable.style.overflowY = 'auto';
+      childTable.style.display = 'block';
 
-      // Set a dynamic height for the table based on the screen size
-      const tableHeight = window.innerHeight * 0.5; // 50% of the viewport height
-      childTable.style.maxHeight = `${tableHeight}px`; // Set max height
+      const tableHeight = window.innerHeight * 0.5;
+      childTable.style.maxHeight = `${tableHeight}px`;
 
-      // Add a wrapper div around the table to handle scrolling
       const tableWrapper = document.createElement('div');
       tableWrapper.style.maxHeight = `${tableHeight}px`;
       tableWrapper.style.overflowY = 'auto';
-      tableWrapper.style.overflowX = 'hidden'; // Hide horizontal scrollbar
-      tableWrapper.style.display = 'block'; // Ensure wrapper is a block element
+      tableWrapper.style.overflowX = 'hidden';
+      tableWrapper.style.display = 'block';
       tableWrapper.appendChild(childTable);
 
       item.childrens.forEach((subItem: any) => {
@@ -219,7 +188,6 @@ export class HomePage {
     }
   }
 
-
   handleItemClick(item: any) {
     if (item.url) {
       window.open(item.url, '_blank');
@@ -228,25 +196,24 @@ export class HomePage {
     }
   }
 
+  // Navigation Controls
   goBack() {
     if (this.navigationStack.length > 1) {
-      this.forwardStack.push(this.navigationStack.pop()!); // Move the current item to the forward stack
-      this.breadcrumbs.pop();  // Remove the last breadcrumb
+      this.forwardStack.push(this.navigationStack.pop()!);
+      this.breadcrumbs.pop();
       const previousItem = this.navigationStack[this.navigationStack.length - 1];
       this.mainContent.nativeElement.innerHTML = '';
       this.renderItem(previousItem, this.mainContent.nativeElement);
-      this.showBackButton = this.navigationStack.length > 1; // Show back button if there's a history
-      this.showBackButton = true;
-      this.showForwardButton = true; // Show forward button
+      this.showBackButton = this.navigationStack.length > 1;
+      this.showForwardButton = true;
       this.noItemsFound = false;
     } else {
-      // If the navigation stack is empty or has only one item, show the initial content
       this.mainContent.nativeElement.innerHTML = this.initialMainContent;
-      this.navigationStack = []; // Reset the navigation stack
-      this.forwardStack = []; // Clear the forward stack
-      this.breadcrumbs = [];  // Reset breadcrumbs
+      this.navigationStack = [];
+      this.forwardStack = [];
+      this.breadcrumbs = [];
       this.showBackButton = false;
-      this.showForwardButton = false; // Hide forward button
+      this.showForwardButton = false;
       this.showSearchBar = false;
       this.noItemsFound = false;
     }
@@ -255,12 +222,12 @@ export class HomePage {
   goForward() {
     if (this.forwardStack.length > 0) {
       const nextItem = this.forwardStack.pop()!;
-      this.navigationStack.push(nextItem); // Add the item back to the navigation stack
+      this.navigationStack.push(nextItem);
       this.mainContent.nativeElement.innerHTML = '';
       this.renderItem(nextItem, this.mainContent.nativeElement);
       this.showBackButton = true;
-      this.showForwardButton = this.forwardStack.length > 0; // Show forward button if there's more history
-      this.breadcrumbs.push(nextItem.title);  // Add to breadcrumb array
+      this.showForwardButton = this.forwardStack.length > 0;
+      this.breadcrumbs.push(nextItem.title);
     }
   }
 
@@ -270,13 +237,13 @@ export class HomePage {
     this.forwardStack = [];
     this.showBackButton = false;
     this.showForwardButton = false;
-    this.breadcrumbs = [];  // Reset breadcrumbs
+    this.breadcrumbs = [];
     this.showSearchBar = false;
     this.noItemsFound = false;
     this.filteredData = [];
   }
 
-
+  // Menu Controls
   openEndMenu() {
     this.menuCtrl.open('end');
   }
