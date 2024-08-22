@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -36,13 +37,24 @@ export class HomePage {
     { text: 'English', data: { action: 'share' } },
   ];
 
-  constructor(public http: HttpClient, private menuCtrl: MenuController) {}
+  constructor(public http: HttpClient, private menuCtrl: MenuController, private translate: TranslateService) {translate.setDefaultLang('pt');}
 
+  toggleLanguage(language: string) {
+    this.translate.use(language);
+  }
+  
   ngOnInit() {
     this.Initialize();
+    this.setInitialLanguage();
     setTimeout(() => {
       this.initialMainContent = this.mainContent.nativeElement.innerHTML;
     }, 0);
+  }
+
+  setInitialLanguage() {
+    // Retrieve the saved language from localStorage or default to Portuguese
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'pt';
+    this.translate.use(savedLanguage);
   }
 
   Initialize() {
@@ -65,13 +77,21 @@ export class HomePage {
     document.body.classList.toggle('dark-mode', this.darkMode);
   }
 
+  handleLanguageChange(language: string) {
+    // Save language preference
+    localStorage.setItem('selectedLanguage', language);
+    this.translate.use(language);
+  }
+
   // search bar filtering functionality
   filterTable() {
-    const searchInput = (document.getElementById('searchInput') as HTMLInputElement).value.toLowerCase();
+    const searchInput = (
+      document.getElementById('searchInput') as HTMLInputElement
+    ).value.toLowerCase();
     const table = document.querySelector('table')!;
     const tr = table.getElementsByTagName('tr');
     let anyVisible = false;
-  
+
     for (let i = 0; i < tr.length; i++) {
       const td = tr[i].getElementsByTagName('td')[0];
       if (td) {
@@ -85,10 +105,10 @@ export class HomePage {
         }
       }
     }
-  
+
     // If no rows are visible, show the error message
     this.noItemsFound = !anyVisible;
-  } 
+  }
 
   // Content Management
   FillContent(item: any) {
@@ -197,27 +217,28 @@ export class HomePage {
   }
 
   // Navigation Controls
+
   goBack() {
     if (this.navigationStack.length > 1) {
-      this.forwardStack.push(this.navigationStack.pop()!);
-      this.breadcrumbs.pop();
+      this.forwardStack.push(this.navigationStack.pop()!); // Move the current item to the forward stack
       const previousItem = this.navigationStack[this.navigationStack.length - 1];
       this.mainContent.nativeElement.innerHTML = '';
       this.renderItem(previousItem, this.mainContent.nativeElement);
-      this.showBackButton = this.navigationStack.length > 1;
-      this.showForwardButton = true;
-      this.noItemsFound = false;
+      this.showBackButton = this.navigationStack.length > 1; // Show back button if there's a history
+      this.showBackButton = true;
+      this.showForwardButton = true; // Show forward button
     } else {
+      // If the navigation stack is empty or has only one item, show the initial content
       this.mainContent.nativeElement.innerHTML = this.initialMainContent;
-      this.navigationStack = [];
-      this.forwardStack = [];
+      this.navigationStack = []; // Reset the navigation stack
+      this.forwardStack = []; // Clear the forward stack
       this.breadcrumbs = [];
       this.showBackButton = false;
-      this.showForwardButton = false;
       this.showSearchBar = false;
-      this.noItemsFound = false;
+      this.showForwardButton = false; // Hide forward button
     }
   }
+  
 
   goForward() {
     if (this.forwardStack.length > 0) {

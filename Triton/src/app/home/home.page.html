@@ -43,12 +43,12 @@
   </div>
 
   <div #mainContent class="homeText" id="main-content">
-    <p class="mainHomeText">Portal CDUC</p>
-    <p class="mainHomeText">(Capacidade, Desempenho, Uso e Custo)</p>
-    <p class="padding-small margin-large">Portal que visa agregar todas as visões, dashboards, relatórios e acessos aos módulos e informações desenvolvidas pela CESTI65 juntamente com equipes de Capacidade CAIXA
-    </p>
+    <p class="mainHomeText">{{ 'home.title' | translate }}</p>
+    <p class="mainHomeText">{{ 'home.description' | translate }}</p>
+    <p class="padding-small margin-large">{{ 'home.details' | translate }}</p>
     <br />
   </div>
+  
   
   <div *ngIf="noItemsFound" class="no-items-message">
     <p class="errorMessage">Nenhum Resultado Encontrado</p>
@@ -59,10 +59,12 @@
   <ion-content class="ion-padding">
     <p>Configurações</p>
     <p>Este é um programa em fase de desenvolvimento. Esta função estará disponível em breve.</p>
-    <ion-button id="open-action-sheet" fill="clear"><ion-icon name="language-outline"></ion-icon>Idioma</ion-button>
-    <ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons"></ion-action-sheet>
     <p>Modo Escuro</p>
     <ion-toggle aria-label="Dark mode toggle" (ionChange)="toggleDarkMode($event)"></ion-toggle>
+    <p>Idioma</p>
+    <ion-button (click)="toggleLanguage('pt')">Português</ion-button>
+    <ion-button (click)="toggleLanguage('en')">English</ion-button>
+    <ion-button (click)="toggleLanguage('fr')">Français</ion-button>
   </ion-content>
 </ion-menu>
 
