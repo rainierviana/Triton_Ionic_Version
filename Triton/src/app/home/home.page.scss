@@ -135,13 +135,20 @@ ion-button {
 //   overflow: hidden;
 // }
 
-.breadcrumb span, .breadcrumb-separator {
+.breadcrumb span {
+  margin-right: 0.5em;
+  color: var(--content-table-text);
+  display: inline-block;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.breadcrumb-separator {
   margin-right: 0.5em;
   color: var(--content-table-text);
   display: inline-block;
   transition: 0.5s;
 }
-
 
 .breadcrumb-wrapper {
   max-width: 55%; /* Ensure wrapper doesn't extend beyond 55% of the screen */

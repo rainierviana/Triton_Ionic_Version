@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Renderer2 } from '@angular/core';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class HomePage {
   // References
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
+
+  private initialMainContentElements: any[] = [];
 
   // State Variables
   searchTerm: string = '';
@@ -31,23 +35,27 @@ export class HomePage {
   private initialMainContent: string = '';
   public breadcrumbs: string[] = [];
 
-  // Action Sheet Options
-  public actionSheetButtons = [
-    { text: 'Português', data: { action: 'delete' } },
-    { text: 'English', data: { action: 'share' } },
-  ];
-
-  constructor(public http: HttpClient, private menuCtrl: MenuController, private translate: TranslateService) {translate.setDefaultLang('pt');}
+  constructor(
+    public http: HttpClient,
+    private menuCtrl: MenuController,
+    private translate: TranslateService,
+    private renderer: Renderer2 
+  ) {
+    translate.setDefaultLang('pt');
+  }
 
   toggleLanguage(language: string) {
     this.translate.use(language);
   }
-  
+
   ngOnInit() {
     this.Initialize();
     this.setInitialLanguage();
     setTimeout(() => {
-      this.initialMainContent = this.mainContent.nativeElement.innerHTML;
+      // Save all child elements of #mainContent
+      this.initialMainContentElements = Array.from(
+        this.mainContent.nativeElement.children
+      );
     }, 0);
   }
 
@@ -221,6 +229,7 @@ export class HomePage {
   goBack() {
     if (this.navigationStack.length > 1) {
       this.forwardStack.push(this.navigationStack.pop()!); // Move the current item to the forward stack
+      this.breadcrumbs.pop();
       const previousItem = this.navigationStack[this.navigationStack.length - 1];
       this.mainContent.nativeElement.innerHTML = '';
       this.renderItem(previousItem, this.mainContent.nativeElement);
@@ -229,7 +238,12 @@ export class HomePage {
       this.showForwardButton = true; // Show forward button
     } else {
       // If the navigation stack is empty or has only one item, show the initial content
-      this.mainContent.nativeElement.innerHTML = this.initialMainContent;
+      this.mainContent.nativeElement.innerHTML = '';
+
+      // Restore the initial content elements
+      this.initialMainContentElements.forEach((element) => {
+        this.renderer.appendChild(this.mainContent.nativeElement, element);
+      });
       this.navigationStack = []; // Reset the navigation stack
       this.forwardStack = []; // Clear the forward stack
       this.breadcrumbs = [];
@@ -238,7 +252,6 @@ export class HomePage {
       this.showForwardButton = false; // Hide forward button
     }
   }
-  
 
   goForward() {
     if (this.forwardStack.length > 0) {
@@ -253,7 +266,13 @@ export class HomePage {
   }
 
   homeButtonClicked() {
-    this.mainContent.nativeElement.innerHTML = this.initialMainContent;
+    this.mainContent.nativeElement.innerHTML = '';
+
+    // Restore the initial content elements
+    this.initialMainContentElements.forEach((element) => {
+      this.renderer.appendChild(this.mainContent.nativeElement, element);
+    });
+
     this.navigationStack = [];
     this.forwardStack = [];
     this.showBackButton = false;
@@ -263,6 +282,25 @@ export class HomePage {
     this.noItemsFound = false;
     this.filteredData = [];
   }
+
+  navigateToBreadcrumb(index: number) {
+    // Update the navigation stack and breadcrumbs to the selected index
+    this.navigationStack = this.navigationStack.slice(0, index + 1);
+    this.breadcrumbs = this.breadcrumbs.slice(0, index + 1);
+
+    // Clear the main content area
+    this.mainContent.nativeElement.innerHTML = '';
+  
+    // Render the selected breadcrumb's content
+    const selectedItem = this.navigationStack[this.navigationStack.length - 1];
+    this.renderItem(selectedItem, this.mainContent.nativeElement);
+  
+    // Update navigation buttons visibility
+    this.showBackButton = true;
+    this.showForwardButton = false; // Clear the forward stack
+    this.forwardStack = [];
+  }
+  
 
   // Menu Controls
   openEndMenu() {
