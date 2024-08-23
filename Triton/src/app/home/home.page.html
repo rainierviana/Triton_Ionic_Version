@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-menu-button slot="start" class="menuButton"></ion-menu-button>
     <div>
-      <img src="../../assets/Images/CAIXA_volume_negativa.png" height="20em" />
+      <img height="20em" />
     </div>
     <ion-menu-button class="menuButton" fill="clear" slot="end" (click)="openEndMenu()"><ion-icon name="settings-outline"></ion-icon></ion-menu-button>
   </ion-toolbar>
@@ -59,21 +59,20 @@
 <ion-menu side="end" contentId="main-content">
   <ion-content class="ion-padding">
     <p>Configurações</p>
-    <p>Este é um programa em fase de desenvolvimento. Esta função estará disponível em breve.</p>
+    <p>Este é um programa em fase de desenvolvimento. Algumas funções podem não funcionar como esperado</p>
     <p>Modo Escuro</p>
     <ion-toggle aria-label="Dark mode toggle" (ionChange)="toggleDarkMode($event)"></ion-toggle>
+    <ion-button fill="clear">Modo Editor</ion-button>
     <p>Idioma</p>
     <ion-button fill="clear" (click)="toggleLanguage('pt')">Português</ion-button>
     <ion-button fill="clear" (click)="toggleLanguage('en')">English</ion-button>
     <ion-button fill="clear" (click)="toggleLanguage('fr')">Français</ion-button>
+    <ion-button fill="clear" (click)="toggleLanguage('es')">Español</ion-button>
   </ion-content>
 </ion-menu>
 
 <ion-footer class="footer">
   <ion-toolbar>
-    <p style="color: rgb(255, 255, 255)">
-      CAIXA ECONÔMICA FEDERAL - CNPJ 00.360.305/0001-04. SBS QUADRA 4 LT 3/4,
-      ASA SUL - CEP 70.070-140 BRASILIA - DF
-    </p>
+    <p style="color: rgb(255, 255, 255)"></p>
   </ion-toolbar>
 </ion-footer>

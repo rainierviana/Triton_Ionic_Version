@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,6 +15,7 @@ export class HomePage {
   @ViewChild('mainContent') mainContent!: ElementRef<HTMLDivElement>;
 
   private initialMainContentElements: any[] = [];
+  public appConfig: any = {};
 
   // State Variables
   searchTerm: string = '';
@@ -49,6 +50,7 @@ export class HomePage {
   }
 
   ngOnInit() {
+    this.loadAppConfig();
     this.Initialize();
     this.setInitialLanguage();
     setTimeout(() => {
@@ -58,6 +60,34 @@ export class HomePage {
       );
     }, 0);
   }
+
+  loadAppConfig() {
+    this.http.get('assets/data/appconfig.json').subscribe((config: any) => {
+        this.appConfig = config;
+        this.applyAppConfig();
+    });
+}
+
+applyAppConfig() {
+  // Set the app title
+  document.title = this.appConfig.appTitle || 'Default App Title';
+
+  // Set the header image
+  const headerImageElement = document.querySelector('ion-toolbar img');
+  if (headerImageElement && this.appConfig.headerImage) {
+      headerImageElement.setAttribute('src', this.appConfig.headerImage);
+  }
+
+  // Set the default language
+  const language = this.appConfig.defaultLanguage || 'en';
+  this.translate.use(language);
+
+  // Set the footer text
+  const footerElement = document.querySelector('ion-footer p');
+  if (footerElement && this.appConfig.footerText) {
+      footerElement.textContent = this.appConfig.footerText;
+  }
+}
 
   setInitialLanguage() {
     // Retrieve the saved language from localStorage or default to Portuguese
