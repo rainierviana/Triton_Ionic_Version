@@ -2,6 +2,20 @@
   "home": {
     "title": "CDUC Portal",
     "description": "(Capacity, Performance, Usage, and Cost)",
-    "details": "Portal aiming to consolidate all views, dashboards, reports, and access to modules and information developed by CESTI65 along with Capacity CAIXA teams."
+    "details": "Portal aiming to consolidate all views, dashboards, reports, and access to modules and information developed by CESTI65 along with Capacity CAIXA teams.",
+    "search": "Search",
+    "editorbuttom": "Editor Mode"
+  },
+  "editor":{
+    "pagename":"Editor Mode",
+    "title": "Welcome to the Editor Mode",
+    "description": "In this page, modifications to the CDUC portal can be done",
+    "apptitle":"Title",
+    "headerimage":"Header Image",
+    "selectimage":"Select Image",
+    "language":"Language",
+    "footertext":"Footer Text",
+    "save":"Save",
+    "settingschangealert":"Configuration saved successfully."
   }
 }

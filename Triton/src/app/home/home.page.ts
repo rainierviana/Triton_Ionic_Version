@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Renderer2 } from '@angular/core';
-import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +32,6 @@ export class HomePage {
   // Navigation Management
   private navigationStack: any[] = [];
   private forwardStack: any[] = [];
-  private initialMainContent: string = '';
   public breadcrumbs: string[] = [];
 
   constructor(

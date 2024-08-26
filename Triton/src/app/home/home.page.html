@@ -32,7 +32,6 @@
       </ng-container>
     </div>
     
-
     <div class="navButtons">
       <ion-button class="backButton" *ngIf="showBackButton" fill="clear" shape="round" (click)="goBack()"><ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon></ion-button>
       <ion-button class="forwardButton"  *ngIf="showForwardButton" fill="clear" shape="round" (click)="goForward()"><ion-icon slot="icon-only" name="arrow-forward-circle-outline"></ion-icon></ion-button>
@@ -49,8 +48,7 @@
     <p class="padding-small margin-large">{{ 'home.details' | translate }}</p>
     <br />
   </div>
-  
-  
+
   <div *ngIf="noItemsFound" class="no-items-message">
     <p class="errorMessage">Nenhum Resultado Encontrado</p>
   </div>
@@ -62,7 +60,7 @@
     <p>Este é um programa em fase de desenvolvimento. Algumas funções podem não funcionar como esperado</p>
     <p>Modo Escuro</p>
     <ion-toggle aria-label="Dark mode toggle" (ionChange)="toggleDarkMode($event)"></ion-toggle>
-    <ion-button fill="clear">Modo Editor</ion-button>
+    <ion-button fill="clear"[routerLink]="['/editor']">{{ 'editor.pagename' | translate }}</ion-button>
     <p>Idioma</p>
     <ion-button fill="clear" (click)="toggleLanguage('pt')">Português</ion-button>
     <ion-button fill="clear" (click)="toggleLanguage('en')">English</ion-button>

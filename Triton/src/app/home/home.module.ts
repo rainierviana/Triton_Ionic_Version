@@ -14,7 +14,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    TranslateModule // Import TranslateModule here
+    TranslateModule
   ],
   declarations: [HomePage]
 })

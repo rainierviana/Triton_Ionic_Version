@@ -1,7 +1,21 @@
 {
-    "home": {
-      "title": "Portal CDUC",
-      "description": "(Capacidad, Rendimiento, Uso y Costo)",
-      "details": "Portal que busca agregar todas las vistas, tableros de control, informes y accesos a los módulos e información desarrollados por CESTI65 junto con los equipos de Capacidad CAIXA."
-    }
+  "home": {
+    "title": "Portal CDUC",
+    "description": "(Capacidad, Rendimiento, Uso y Costo)",
+    "details": "Portal que busca consolidar todas las vistas, tableros de control, informes y accesos a los módulos e información desarrollados por CESTI65 junto con los equipos de Capacidad CAIXA.",
+    "search": "Buscar",
+    "editorbuttom": "Modo Editor"
+  },
+  "editor": {
+    "pagename":"Modo Editor",
+    "title": "Bienvenido al Modo Editor",
+    "description": "En esta página se pueden hacer modificaciones al portal CDUC",
+    "apptitle": "Título",
+    "headerimage": "Imagen de Encabezado",
+    "selectimage":"Seleccionar Imagen",
+    "language": "Idioma",
+    "footertext": "Texto del Pie de Página",
+    "save": "Guardar",
+    "settingschangealert":"Configuración guardada exitosamente."
+  }
 }

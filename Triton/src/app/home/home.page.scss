@@ -122,18 +122,18 @@ ion-button {
 
   //This part of the code is for a optional scrollable breadcrumb(not finished)
 
-  // overflow-x: auto; /* Enable horizontal scrolling */
-  // white-space: nowrap; /* Prevent items from wrapping to the next line */
-  // max-width: 55%; /* Limit the width to 55% of the screen */
-  // box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  // padding-top: 3em;
-  // padding-bottom: 1em;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent items from wrapping to the next line */
+  max-width: 85%; /* Limit the width to 55% of the screen */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  padding-top: 3em;
+  padding-bottom: 1em;
 }
 
 //Optional code for making the breadcrumb scrollbar hidden
-// .breadcrumb ::-webkit-scrollbar{
-//   overflow: hidden;
-// }
+.breadcrumb::-webkit-scrollbar{
+  display: none;
+}
 
 .breadcrumb span {
   margin-right: 0.5em;

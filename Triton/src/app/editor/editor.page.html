@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-button style="color: rgb(255,255,255);" slot="start" fill="clear" [routerLink]="['/home']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    <ion-title style="color: rgb(255,255,255);">{{ 'editor.pagename' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p class="editor-text">{{ 'editor.title' | translate }}</p>
+  <p class="editor-text">{{ 'editor.description' | translate }}</p>
+  <form (submit)="saveConfig()">
+    <ion-item>
+      <ion-label class="editor-title" position="floating">{{ 'editor.apptitle' | translate }}</ion-label>
+      <ion-input [(ngModel)]="appTitle" name="appTitle"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">{{ 'editor.headerimage' | translate }}</ion-label>
+      <br />
+      <ion-button (click)="selectImage()">{{ 'editor.selectimage' | translate }}</ion-button>
+    </ion-item>
+    <ion-item *ngIf="headerImage">
+      <img [src]="getSafeUrl(headerImage)" height="20em" />
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Footer Text</ion-label>
+      <ion-input [(ngModel)]="footerText" name="footerText"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{ 'editor.language' | translate }}</ion-label>
+      <ion-select [(ngModel)]="selectedLanguage" name="selectedLanguage">
+        <ion-select-option value="en">English</ion-select-option>
+        <ion-select-option value="es">Español</ion-select-option>
+        <ion-select-option value="fr">Français</ion-select-option>
+        <ion-select-option value="pt">Português</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button type="submit">{{ 'editor.save' | translate }}</ion-button>
+  </form>
+</ion-content>
