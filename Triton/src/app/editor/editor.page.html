@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button style="color: rgb(255,255,255);" slot="start" fill="clear" [routerLink]="['/home']"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+    <ion-button slot="start" fill="clear" [routerLink]="['/home']"><ion-icon class="backButton" name="arrow-back-outline"></ion-icon></ion-button>
     <ion-title style="color: rgb(255,255,255);">{{ 'editor.pagename' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,7 +16,7 @@
     <ion-item>
       <ion-label position="floating">{{ 'editor.headerimage' | translate }}</ion-label>
       <br />
-      <ion-button (click)="selectImage()">{{ 'editor.selectimage' | translate }}</ion-button>
+      <ion-button class="contentButton" (click)="selectImage()">{{ 'editor.selectimage' | translate }}</ion-button>
     </ion-item>
     <ion-item *ngIf="headerImage">
       <img [src]="getSafeUrl(headerImage)" height="20em" />
@@ -34,6 +34,6 @@
         <ion-select-option value="pt">Português</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-button type="submit">{{ 'editor.save' | translate }}</ion-button>
+    <ion-button class="contentButton" type="submit">{{ 'editor.save' | translate }}</ion-button>
   </form>
 </ion-content>

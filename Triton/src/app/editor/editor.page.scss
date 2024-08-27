@@ -2,3 +2,18 @@
     text-align: center;
     font-size: 17px;
 }
+
+.backButton{
+    color: rgb(255,255,255);
+}
+
+.contentButton {
+    --background: none;
+    --border-color: rgb(0,79,159);
+    --border-style: solid;
+    --border-width: 1px;
+  
+  
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
