@@ -1,19 +1,71 @@
-.editor-text {
-    text-align: center;
-    font-size: 17px;
+.editortitle {
+  text-align: center;
+  font-size: 17px;
+  font-family: Futura-Bold;
 }
 
+.editortext {
+    text-align: center;
+    font-size: 17px;
+    font-family: Futura;
+}
+
+.allLables{
+  font-size: 17px;
+  font-family: Futura;
+  color: var(--text-color);
+}
 .backButton{
     color: rgb(255,255,255);
+    font-family: Futura;
 }
 
 .contentButton {
     --background: none;
-    --border-color: rgb(0,79,159);
+    --border-color: var(--text-color);
     --border-style: solid;
     --border-width: 1px;
-  
-  
+    color: var(--text-color);
     --padding-top: 10px;
     --padding-bottom: 10px;
+    font-family: Futura;
+}
+
+.label{
+    color: var(--text-color);
+    font-family: Futura;
+}
+
+.input{
+    color: var(--text-color);
+    font-family: Futura;
+}
+
+ion-select {
+    --placeholder-color: var(--text-color);
+    --placeholder-opacity: 1;
+    width: 100%;
+    justify-content: center;
+    color: var(--text-color);
+  }
+  
+  ion-select::part(placeholder),
+  ion-select::part(text) {
+    flex: 0 0 auto;
+    color: var(--text-color);
+  }
+  
+  ion-select::part(placeholder)::first-letter {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  ion-select::part(text) {
+    color: var(--text-color);
+  }
+  
+  ion-select::part(icon) {
+    color: var(--text-color);
+    opacity: 1;
   }

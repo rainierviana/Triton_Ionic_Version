@@ -106,3 +106,8 @@ p, span {
   font-weight: bold;
   font-style: normal;
 }
+
+::ng-deep .select-interface-option {
+  color: var(--content-table-text) !important; /* Applies the custom color */
+}
+

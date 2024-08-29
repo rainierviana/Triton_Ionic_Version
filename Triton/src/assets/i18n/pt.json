@@ -9,13 +9,15 @@
   "editor": {
     "pagename":"Modo Editor",
     "title": "Bem-vindo ao Modo Editor",
-    "description": "Nesta página, modificações no portal CDUC podem ser feitas",
-    "apptitle": "Título",
-    "headerimage": "Imagem do Cabeçalho",
-    "selectimage":"Selecionar Imagem",
-    "language": "Idioma",
-    "footertext": "Texto do Rodapé",
-    "save": "Salvar",
-    "settingschangealert":"Configuração salva com sucesso."
+    "description": "Nesta página, podem ser feitas modificações no portal CDUC",
+    "colors": "Cores",
+    "background": "Plano de Fundo",
+    "toolbarbackground": "Cabeçalho",
+    "button": "Cor de Texto dos Botões",
+    "tablebackground": "Tabela",
+    "text": "Texto",
+    "tabletext": "Texto da Tabela",
+    "navbutton": "Plano de fundo dos Botões de Navegação",
+    "save": "Salvar"
   }
 }

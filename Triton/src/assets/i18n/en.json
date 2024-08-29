@@ -10,12 +10,14 @@
     "pagename":"Editor Mode",
     "title": "Welcome to the Editor Mode",
     "description": "In this page, modifications to the CDUC portal can be done",
-    "apptitle":"Title",
-    "headerimage":"Header Image",
-    "selectimage":"Select Image",
-    "language":"Language",
-    "footertext":"Footer Text",
-    "save":"Save",
-    "settingschangealert":"Configuration saved successfully."
+    "colors": "Colors",
+    "background": "Background",
+    "toolbarbackground": "Header",
+    "button": "Buttons Text Color",
+    "tablebackground": "Table Background",
+    "text": "Text",
+    "tabletext": "Table Text",
+    "navbutton": "Navigation Button Background",
+    "save":"Save"
   }
 }
