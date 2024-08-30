@@ -1,21 +1,23 @@
+//Light mode Settngs
+
 :root {
   --ion-background-color: rgb(246, 246, 246);
-  --ion-toolbar-background: rgb(0, 79, 159);
-  --ion-button-color: rgb(0, 79, 159);
-  --table-background: rgb(208,224,227);
-  --text-color: rgb(0, 79, 159);
-  --content-table-text: rgb(0, 79,159); // Light mode text color
-  --navbuttons: rgb(239, 125, 0);
+  --ion-toolbar-background: rgb(64, 64, 64);
+  --ion-button-color: rgb(0, 0, 0);
+  --table-background: rgb(225, 225, 225);
+  --text-color: rgb(0, 0, 0);
+  --content-table-title: rgb(0, 102, 205);
+  --content-table-description: rgb(90, 90, 90); 
 }
+
+// Dark settings
 
 .dark-mode {
   --ion-background-color: rgb(37, 37, 37);
-  --ion-toolbar-background: rgb(0,79,159);
+  --ion-toolbar-background: rgb(64,64,64);
   --ion-button-color: rgb(255, 255, 255);
-  --table-background: rgb(1, 33, 65);
+  --table-background: rgb(55, 55, 55);
   --text-color: rgb(255, 255, 255);
-  --content-table-text: rgb(255, 255, 255); // Dark mode text color
-  --navbuttons: rgb(0,79,159);
+  --content-table-title: rgb(255, 255, 255); 
+  --content-table-description: rgb(171, 171, 171);
 }
-
-

@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-menu contentId="main-content">
+  <ion-menu contentId="main-content" auto-hide="on">
     <ion-content>
       <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()"
         ><ion-icon name="home-outline"></ion-icon></ion-button>
@@ -32,6 +32,7 @@
       </ng-container>
     </div>
     
+
     <div class="navButtons">
       <ion-button class="backButton" *ngIf="showBackButton" fill="clear" shape="round" (click)="goBack()"><ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon></ion-button>
       <ion-button class="forwardButton"  *ngIf="showForwardButton" fill="clear" shape="round" (click)="goForward()"><ion-icon slot="icon-only" name="arrow-forward-circle-outline"></ion-icon></ion-button>
@@ -39,7 +40,7 @@
   </div>
   
   <div *ngIf="showSearchBar" class="search-bar-container">
-    <input class="searchBar" autocomplete="off" type="text" id="searchInput" placeholder="{{ 'home.search' | translate }}" (input)="filterTable()"  />
+    <input class="searchBar" autocomplete="off" type="text" id="searchInput" placeholder="Pesquisar" (input)="filterTable()"/>
   </div>
 
   <div #mainContent class="homeText" id="main-content">
@@ -48,7 +49,8 @@
     <p class="padding-small margin-large">{{ 'home.details' | translate }}</p>
     <br />
   </div>
-
+  
+  
   <div *ngIf="noItemsFound" class="no-items-message">
     <p class="errorMessage">Nenhum Resultado Encontrado</p>
   </div>
@@ -60,7 +62,6 @@
     <p>Este é um programa em fase de desenvolvimento. Algumas funções podem não funcionar como esperado</p>
     <p>Modo Escuro</p>
     <ion-toggle aria-label="Dark mode toggle" (ionChange)="toggleDarkMode($event)"></ion-toggle>
-    <ion-button fill="clear"[routerLink]="['/editor']">{{ 'editor.pagename' | translate }}</ion-button>
     <p>Idioma</p>
     <ion-button fill="clear" (click)="toggleLanguage('pt')">Português</ion-button>
     <ion-button fill="clear" (click)="toggleLanguage('en')">English</ion-button>

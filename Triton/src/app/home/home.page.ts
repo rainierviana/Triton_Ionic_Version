@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,6 +32,7 @@ export class HomePage {
   // Navigation Management
   private navigationStack: any[] = [];
   private forwardStack: any[] = [];
+  private initialMainContent: string = '';
   public breadcrumbs: string[] = [];
 
   constructor(
@@ -186,9 +187,7 @@ applyAppConfig() {
 
     if (item.childrens && item.childrens.length > 0) {
       const childTable = document.createElement('table');
-      childTable.style.borderRadius = '1em';
       childTable.style.width = '100%';
-      childTable.style.color = 'var(--content-table-text)';
       childTable.style.transition = '0.2s';
       childTable.style.overflowY = 'auto';
       childTable.style.display = 'block';
@@ -211,7 +210,7 @@ applyAppConfig() {
         childUrl.href = subItem.url;
         childUrl.textContent = subItem.title;
         childUrl.style.textDecoration = 'none';
-        childUrl.style.color = childTable.style.color;
+        childUrl.style.color = 'var(--content-table-title)';
         childUrl.style.textAlign = 'left';
         childCol1.style.textAlign = 'left';
         childCol1.style.paddingLeft = '1.5em';
@@ -233,6 +232,7 @@ applyAppConfig() {
         childCol2.style.padding = '1em';
         childCol2.style.cursor = 'default';
         childCol2.style.textAlign = 'left';
+        childCol2.style.color = 'var(--content-table-description)'
 
         childRow.appendChild(childCol1);
         childRow.appendChild(childCol2);

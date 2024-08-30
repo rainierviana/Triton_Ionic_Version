@@ -6,8 +6,7 @@
     "axe/text-alternatives": [
       "default",
       {
-        "image-alt": "off",
-        "document-title": "off"
+        "image-alt": "off"
       }
     ],
     "meta-viewport": "off",
@@ -24,12 +23,6 @@
       "default",
       {
         "list": "off"
-      }
-    ],
-    "axe/forms": [
-      "default",
-      {
-        "label": "off"
       }
     ]
   }

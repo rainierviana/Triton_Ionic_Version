@@ -40,6 +40,7 @@
   font-size: 18px;
   margin: 0;
   padding: 0;
+  color: var(--ion-button-color);
 }
 
 ion-button {
@@ -192,7 +193,6 @@ ion-button {
   font-family: 'Futura';
 }
 
-/* Custom Styles for ion-toggle Switch */
 ion-toggle {
   --track-background: #ababab;
   --track-background-checked: #ddd;
