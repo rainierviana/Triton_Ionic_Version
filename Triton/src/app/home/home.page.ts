@@ -32,86 +32,59 @@ export class HomePage {
   // Navigation Management
   private navigationStack: any[] = [];
   private forwardStack: any[] = [];
-  private initialMainContent: string = '';
   public breadcrumbs: string[] = [];
 
   constructor(
     public http: HttpClient,
     private menuCtrl: MenuController,
     private translate: TranslateService,
-    private renderer: Renderer2 
+    private renderer: Renderer2
   ) {
     translate.setDefaultLang('pt');
   }
 
-  toggleLanguage(language: string) {
-    this.translate.use(language);
-  }
-
+  // Initialization
   ngOnInit() {
     this.loadAppConfig();
     this.Initialize();
     this.setInitialLanguage();
+
+    // Restore the saved state
+    const savedItem = localStorage.getItem('lastSelectedItem');
+    const savedBreadcrumbs = localStorage.getItem('breadcrumbs');
+    const savedNavigationStack = localStorage.getItem('navigationStack');
+    const savedDarkMode = localStorage.getItem('darkMode');
+
+    if (savedItem && savedBreadcrumbs && savedNavigationStack) {
+      const item = JSON.parse(savedItem);
+      this.breadcrumbs = JSON.parse(savedBreadcrumbs);
+      this.navigationStack = JSON.parse(savedNavigationStack);
+
+      if (savedDarkMode !== null) {
+        this.darkMode = JSON.parse(savedDarkMode);
+        document.body.classList.toggle('dark-mode', this.darkMode);
+      }
+
+      this.FillContent(item); // Restore the last content
+    }
+
     setTimeout(() => {
-      // Save all child elements of #mainContent
       this.initialMainContentElements = Array.from(
         this.mainContent.nativeElement.children
       );
     }, 0);
   }
 
-  loadAppConfig() {
-    this.http.get('assets/data/appconfig.json').subscribe((config: any) => {
-        this.appConfig = config;
-        this.applyAppConfig();
-    });
-}
-
-applyAppConfig() {
-  // Set the app title
-  document.title = this.appConfig.appTitle || 'Default App Title';
-
-  // Set the header image
-  const headerImageElement = document.querySelector('ion-toolbar img');
-  if (headerImageElement && this.appConfig.headerImage) {
-      headerImageElement.setAttribute('src', this.appConfig.headerImage);
+  // Language Management
+  toggleLanguage(language: string) {
+    this.translate.use(language);
+    localStorage.setItem('selectedLanguage', language); // Save the selected language to localStorage
   }
-
-  // Set the default language
-  const language = this.appConfig.defaultLanguage || 'en';
-  this.translate.use(language);
-
-  // Set the footer text
-  const footerElement = document.querySelector('ion-footer p');
-  if (footerElement && this.appConfig.footerText) {
-      footerElement.textContent = this.appConfig.footerText;
-  }
-}
 
   setInitialLanguage() {
     // Retrieve the saved language from localStorage or default to Portuguese
     const savedLanguage = localStorage.getItem('selectedLanguage') || 'pt';
     this.translate.use(savedLanguage);
-  }
-
-  Initialize() {
-    this.http.get('assets/data/menumodel.json').subscribe(
-      (data: any) => {
-        this.menuData = data;
-        this.filteredMenuData = data; // Initialize filtered data
-      },
-      (err) => {
-        console.error(
-          `status: ${err.status}, Status text: ${err.statusText}, Message: ${err.message}`
-        );
-      }
-    );
-  }
-
-  // Dark Mode Toggle
-  toggleDarkMode(event: any) {
-    this.darkMode = event.detail.checked;
-    document.body.classList.toggle('dark-mode', this.darkMode);
   }
 
   handleLanguageChange(language: string) {
@@ -120,31 +93,17 @@ applyAppConfig() {
     this.translate.use(language);
   }
 
-  // search bar filtering functionality
-  filterTable() {
-    const searchInput = (
-      document.getElementById('searchInput') as HTMLInputElement
-    ).value.toLowerCase();
-    const table = document.querySelector('table')!;
-    const tr = table.getElementsByTagName('tr');
-    let anyVisible = false;
+  // Dark Mode Toggle
+  toggleDarkMode(event: any) {
+    this.darkMode = event.detail.checked;
+    document.body.classList.toggle('dark-mode', this.darkMode);
+    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
+  } 
 
-    for (let i = 0; i < tr.length; i++) {
-      const td = tr[i].getElementsByTagName('td')[0];
-      if (td) {
-        const txtValue = td.textContent || td.innerText;
-        const hasUrl = tr[i].querySelector('a') !== null;
-        if (txtValue.toLowerCase().indexOf(searchInput) > -1 && hasUrl) {
-          tr[i].style.display = ''; // Show the row
-          anyVisible = true;
-        } else {
-          tr[i].style.display = 'none'; // Hide the row
-        }
-      }
-    }
 
-    // If no rows are visible, show the error message
-    this.noItemsFound = !anyVisible;
+  // Menu Controls
+  openEndMenu() {
+    this.menuCtrl.open('end');
   }
 
   // Content Management
@@ -167,6 +126,9 @@ applyAppConfig() {
       this.breadcrumbs.push(item.title);
       this.navigationStack.push(item);
     }
+
+    // Close the side menu after an option is selected
+    this.menuCtrl.close();
   }
 
   renderItem(item: any, parentElement: HTMLElement) {
@@ -215,7 +177,10 @@ applyAppConfig() {
         childCol1.style.textAlign = 'left';
         childCol1.style.paddingLeft = '1.5em';
 
-        if (!subItem.url) {
+        if (subItem.url) {
+          // Set the target attribute to "_blank" to open in a new tab
+          childUrl.target = '_blank';
+        } else {
           childUrl.style.cursor = 'pointer';
           childUrl.addEventListener('click', (event) => {
             event.preventDefault();
@@ -232,7 +197,7 @@ applyAppConfig() {
         childCol2.style.padding = '1em';
         childCol2.style.cursor = 'default';
         childCol2.style.textAlign = 'left';
-        childCol2.style.color = 'var(--content-table-description)'
+        childCol2.style.color = 'var(--content-table-description)';
 
         childRow.appendChild(childCol1);
         childRow.appendChild(childCol2);
@@ -246,19 +211,21 @@ applyAppConfig() {
 
   handleItemClick(item: any) {
     if (item.url) {
+      // Open the external link in a new browser tab
       window.open(item.url, '_blank');
     } else if (item.childrens && item.childrens.length > 0) {
+      // If there is no URL, load the child content
       this.FillContent(item);
     }
   }
 
   // Navigation Controls
-
   goBack() {
     if (this.navigationStack.length > 1) {
       this.forwardStack.push(this.navigationStack.pop()!); // Move the current item to the forward stack
       this.breadcrumbs.pop();
-      const previousItem = this.navigationStack[this.navigationStack.length - 1];
+      const previousItem =
+        this.navigationStack[this.navigationStack.length - 1];
       this.mainContent.nativeElement.innerHTML = '';
       this.renderItem(previousItem, this.mainContent.nativeElement);
       this.showBackButton = this.navigationStack.length > 1; // Show back button if there's a history
@@ -318,20 +285,84 @@ applyAppConfig() {
 
     // Clear the main content area
     this.mainContent.nativeElement.innerHTML = '';
-  
+
     // Render the selected breadcrumb's content
     const selectedItem = this.navigationStack[this.navigationStack.length - 1];
     this.renderItem(selectedItem, this.mainContent.nativeElement);
-  
+
     // Update navigation buttons visibility
     this.showBackButton = true;
     this.showForwardButton = false; // Clear the forward stack
     this.forwardStack = [];
   }
-  
 
-  // Menu Controls
-  openEndMenu() {
-    this.menuCtrl.open('end');
+  // Data Initialization
+  loadAppConfig() {
+    this.http.get('assets/data/appconfig.json').subscribe((config: any) => {
+      this.appConfig = config;
+      this.applyAppConfig();
+    });
+  }
+
+  applyAppConfig() {
+    // Set the app title
+    document.title = this.appConfig.appTitle || 'Default App Title';
+
+    // Set the header image
+    const headerImageElement = document.querySelector('ion-toolbar img');
+    if (headerImageElement && this.appConfig.headerImage) {
+      headerImageElement.setAttribute('src', this.appConfig.headerImage);
+    }
+
+    // Set the default language
+    const language = this.appConfig.defaultLanguage || 'en';
+    this.translate.use(language);
+
+    // Set the footer text
+    const footerElement = document.querySelector('ion-footer p');
+    if (footerElement && this.appConfig.footerText) {
+      footerElement.textContent = this.appConfig.footerText;
+    }
+  }
+
+  Initialize() {
+    this.http.get('assets/data/menumodel.json').subscribe(
+      (data: any) => {
+        this.menuData = data;
+        this.filteredMenuData = data; // Initialize filtered data
+      },
+      (err) => {
+        console.error(
+          `status: ${err.status}, Status text: ${err.statusText}, Message: ${err.message}`
+        );
+      }
+    );
+  }
+
+  // Search Bar
+  filterTable() {
+    const searchInput = (
+      document.getElementById('searchInput') as HTMLInputElement
+    ).value.toLowerCase();
+    const table = document.querySelector('table')!;
+    const tr = table.getElementsByTagName('tr');
+    let anyVisible = false;
+
+    for (let i = 0; i < tr.length; i++) {
+      const td = tr[i].getElementsByTagName('td')[0];
+      if (td) {
+        const txtValue = td.textContent || td.innerText;
+        const hasUrl = tr[i].querySelector('a') !== null;
+        if (txtValue.toLowerCase().indexOf(searchInput) > -1 && hasUrl) {
+          tr[i].style.display = ''; // Show the row
+          anyVisible = true;
+        } else {
+          tr[i].style.display = 'none'; // Hide the row
+        }
+      }
+    }
+
+    // If no rows are visible, show the error message
+    this.noItemsFound = !anyVisible;
   }
 }

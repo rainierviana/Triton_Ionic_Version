@@ -1,23 +1,21 @@
-//Light mode Settngs
-
 :root {
-  --ion-background-color: rgb(246, 246, 246);
-  --ion-toolbar-background: rgb(64, 64, 64);
-  --ion-button-color: rgb(0, 0, 0);
-  --table-background: rgb(225, 225, 225);
-  --text-color: rgb(0, 0, 0);
-  --content-table-title: rgb(0, 102, 205);
-  --content-table-description: rgb(90, 90, 90); 
+  //Light mode Settngs
+  --ion-background-color: var(--ion-color-light);
+  --ion-toolbar-background: var(--ion-color-dark-tint);
+  --ion-button-color: var(--ion-color-light-contrast);
+  --table-background: var(--ion-color-light);
+  --text-color: var(--ion-color-light-contrast);
+  --content-table-title: var(--ion-color-primary);
+  --content-table-description: var(--ion-color-medium-shade); 
 }
 
 // Dark settings
-
 .dark-mode {
-  --ion-background-color: rgb(37, 37, 37);
-  --ion-toolbar-background: rgb(64,64,64);
-  --ion-button-color: rgb(255, 255, 255);
-  --table-background: rgb(55, 55, 55);
-  --text-color: rgb(255, 255, 255);
-  --content-table-title: rgb(255, 255, 255); 
-  --content-table-description: rgb(171, 171, 171);
+  --ion-background-color: var(--ion-color-dark-shade);
+  --ion-toolbar-background: var(--ion-color-dark-tint);
+  --ion-button-color: var(--ion-color-light);
+  --table-background: var(--ion-color-dark-tint);
+  --text-color: var(--ion-color-light);
+  --content-table-title: var(--ion-color-light); 
+  --content-table-description: var(--ion-color-medium);
 }

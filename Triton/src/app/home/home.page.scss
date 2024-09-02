@@ -1,3 +1,5 @@
+// Default Ionic Colors
+
 /* General Container Styles */
 #container {
   text-align: center;
@@ -58,7 +60,6 @@ ion-button {
 }
 
 .homeText {
-  color: rgb(0, 79, 159);
   text-align: center;
   font-size: 22px;
   margin-top: 0;
@@ -83,11 +84,6 @@ ion-button {
 
 .mainHomeText {
   font-size: 30px;
-}
-
-/* Config Styles */
-.config {
-  color: rgb(239, 125, 0);
 }
 
 /* Navigation Styles */
@@ -197,8 +193,8 @@ ion-toggle {
   --track-background: #ababab;
   --track-background-checked: #ddd;
 
-  --handle-background: rgb(239, 125, 0);
-  --handle-background-checked: rgb(52, 147, 243);
+  --handle-background: var(--ion-color-primary);
+  --handle-background-checked: var(--ion-color-primary-shade);
   --handle-width: 25px;
   --handle-height: 27px;
   --handle-max-height: auto;
