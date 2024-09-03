@@ -61,7 +61,7 @@
     <p>Configurações</p>
     <p>Este é um programa em fase de desenvolvimento. Algumas funções podem não funcionar como esperado</p>
     <p>Modo Escuro</p>
-    <ion-toggle aria-label="Dark mode toggle" (ionChange)="toggleDarkMode($event)"></ion-toggle>
+    <ion-toggle aria-label="Dark mode toggle" [checked]="darkMode" (ionChange)="toggleDarkMode($event)"></ion-toggle>
     <p>Idioma</p>
     <ion-button fill="clear" (click)="toggleLanguage('pt')">Português</ion-button>
     <ion-button fill="clear" (click)="toggleLanguage('en')">English</ion-button>

@@ -53,20 +53,23 @@ export class HomePage {
     const savedItem = localStorage.getItem('lastSelectedItem');
     const savedBreadcrumbs = localStorage.getItem('breadcrumbs');
     const savedNavigationStack = localStorage.getItem('navigationStack');
-    const savedDarkMode = localStorage.getItem('darkMode');
+    const savedDarkMode = localStorage.getItem('darkMode'); // Retrieve the dark mode preference
 
     if (savedItem && savedBreadcrumbs && savedNavigationStack) {
       const item = JSON.parse(savedItem);
       this.breadcrumbs = JSON.parse(savedBreadcrumbs);
       this.navigationStack = JSON.parse(savedNavigationStack);
 
-      if (savedDarkMode !== null) {
-        this.darkMode = JSON.parse(savedDarkMode);
-        document.body.classList.toggle('dark-mode', this.darkMode);
-      }
-
-      this.FillContent(item); // Restore the last content
+    if (savedDarkMode !== null) {
+      this.darkMode = JSON.parse(savedDarkMode);
+      document.body.classList.toggle('dark-mode', this.darkMode); // Apply the dark mode based on the preference
     }
+
+    this.FillContent(item); // Restore the last content
+  } else if (savedDarkMode !== null) {
+      this.darkMode = JSON.parse(savedDarkMode);
+      document.body.classList.toggle('dark-mode', this.darkMode); // Apply the dark mode if no other state is saved
+  }
 
     setTimeout(() => {
       this.initialMainContentElements = Array.from(
