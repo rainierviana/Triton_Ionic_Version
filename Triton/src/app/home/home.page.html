@@ -15,9 +15,11 @@
         ><ion-icon name="home-outline"></ion-icon></ion-button>
       <br />
       <ng-container *ngFor="let menuItem of menuData" class="optionList">
-        <span (click)="FillContent(menuItem)">
-          <div><ion-button fill="clear">{{ menuItem.title }}</ion-button></div>
-        </span>
+        <div>
+          <ion-button fill="clear" (click)="FillContent(menuItem)">
+            {{ menuItem.title }}
+          </ion-button>
+        </div>
       </ng-container>
     </ion-content>
   </ion-menu>
@@ -68,8 +70,8 @@
   </ion-content>
 </ion-menu>
 
-<ion-footer class="footer">
+<ion-footer>
   <ion-toolbar>
-    <p style="color: rgb(255, 255, 255)"></p>
+    <p class="footer"></p>
   </ion-toolbar>
 </ion-footer>
