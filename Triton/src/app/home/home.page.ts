@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Renderer2 } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-home',
@@ -38,7 +40,8 @@ export class HomePage {
     public http: HttpClient,
     private menuCtrl: MenuController,
     private translate: TranslateService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private alertController: AlertController
   ) {
     translate.setDefaultLang('pt');
   }
@@ -103,16 +106,31 @@ export class HomePage {
     localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
   } 
 
-
   // Menu Controls
   openEndMenu() {
     this.menuCtrl.open('end');
   }
 
+  async presentAlert() {
+    await this.menuCtrl.close(); // Close the menu
+    
+    const header = this.translate.instant('home.about');
+    const message = this.translate.instant('home.informationabout');
+    
+    const alert = await this.alertController.create({
+      header: header,
+      message: message,
+      buttons: ['OK'],
+      cssClass: 'custom-alert' // Add a custom class
+    });
+  
+    await alert.present();
+  }
+  
+  
   // Content Management
   FillContent(item: any) {
     this.showSearchBar = !item.url;
-
     this.navigationStack.push(item);
     this.forwardStack = [];
     this.mainContent.nativeElement.innerHTML = '';

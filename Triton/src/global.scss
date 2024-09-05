@@ -107,6 +107,11 @@
   --ion-color-light-tint: #f7f8f9;
 }
 
+.custom-alert .alert-title {
+  color: var(--text-color); 
+}
+
+
 .padding-small {
   transition:0.2s;
   padding: var(--padding-small);
