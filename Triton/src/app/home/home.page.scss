@@ -1,5 +1,3 @@
-// Default Ionic Colors
-
 /* General Container Styles */
 #container {
   text-align: center;
@@ -186,7 +184,7 @@ ion-button {
 }
 
 ion-toggle {
-  --track-background: #ababab;
+  --track-background: var(--ion-color-medium-shade);
   --track-background-checked: #ddd;
 
   --handle-background: var(--ion-color-primary);

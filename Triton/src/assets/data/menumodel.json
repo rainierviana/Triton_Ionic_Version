@@ -581,7 +581,7 @@
 					{
 						"title": "EficienciaMF_Transacoes_MSU",
 						"description": "Este relatório tem por objetivo apresenta o Indicador de Eficiência Plataforma Mainframe (EP_MF) a ser utilizado pela CESTI351 para acompanhar e avaliar o desempenho do ambiente através da relação entre o total de transações CICS executadas x o total de Unidades de Serviço (SU) por dia.",
-						"url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b8199be93cf25110a943fb"
+						"url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64dce388e93cf25110a99a02"
 					}
 				]
 			},

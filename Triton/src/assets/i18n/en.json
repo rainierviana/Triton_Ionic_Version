@@ -4,6 +4,9 @@
     "description": "(Capacity, Performance, Usage, and Cost)",
     "details": "Portal aiming to consolidate all views, dashboards, reports, and access to modules and information developed by CESTI65 along with Capacity CAIXA teams.",
     "about":"About",
+    "settings":"Settings",
+    "darkmode":"Dark Mode",
+    "language":"Language",
     "informationabout": "©2024 4Bears Tecnologies. All Rights Reserved"
   }
 }

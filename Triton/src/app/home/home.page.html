@@ -60,11 +60,10 @@
 
 <ion-menu side="end" contentId="main-content">
   <ion-content class="ion-padding">
-    <p>Configurações</p>
-    <p>Este é um programa em fase de desenvolvimento. Algumas funções podem não funcionar como esperado</p>
-    <p>Modo Escuro</p>
+    <p>{{ 'home.settings' | translate }}</p>
+    <p>{{ 'home.darkmode' | translate }}</p>
     <ion-toggle aria-label="Dark mode toggle" [checked]="darkMode" (ionChange)="toggleDarkMode($event)"></ion-toggle>
-    <p>Idioma</p>
+    <p>{{ 'home.language' | translate }}</p>
     <ion-button fill="clear" (click)="toggleLanguage('pt')">Português</ion-button>
     <ion-button fill="clear" (click)="toggleLanguage('en')">English</ion-button>
     <ion-button fill="clear" (click)="presentAlert()">{{ 'home.about' | translate }}</ion-button>
