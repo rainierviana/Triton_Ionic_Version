@@ -282,6 +282,7 @@ export class HomePage {
   }
 
   homeButtonClicked() {
+    this.menuCtrl.close();
     this.mainContent.nativeElement.innerHTML = '';
 
     // Restore the initial content elements
