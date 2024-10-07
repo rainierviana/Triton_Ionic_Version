@@ -1798,6 +1798,16 @@
 				"url": "",
 				"childrens": [
 					{
+						"title": "4B_Uso_Custos_IBM-ModelMLC",
+						"description": "Apresenta o dashboard de custos no modelo MLC",
+						"url": "https://10.221.70.14:9091/app/main#/dashboards/642332b3ca6751574c9d4a4b"
+					},
+					{
+						"title": "4B_Uso_Custos_IBM-ModelTFP",
+						"description": "Apresenta o dashboard de custos no modelo TFP",
+						"url": "https://10.221.70.14:9091/app/main#/dashboards/66a159f15d08f45eac6393b6"
+					},
+					{
 						"title": "4B_Uso_Custos_AcompanhamentoContratoSoftware",
 						"description": "Apresenta, por fornecedor e contrato, a vigência e os produtos relacionados, bem como o detalhamento orçamentário.",
 						"url": "https://10.221.70.14:9091/app/main#/dashboards/646d1caa8cb17c0700750afb"
@@ -1826,11 +1836,6 @@
 						"title": "4B_Uso_Custos_GestaoOrcamentoContrato",
 						"description": "Apresenta por fornecedor e contrato, o Valor Global (por fornecedor, categoria e subcategoria), o prazo em meses do esgotamento orçamentário, o saldo orçamentário com e sem regressão, a baseline do custo orçado e o saldo orçamentário detalhado.",
 						"url": "https://10.221.70.14:9091/app/main#/dashboards/641b380bfe23165750e50644"
-					},
-					{
-						"title": "4B_Uso_Custos_IBM",
-						"description": "Apresenta o uso e o custo total dos softwares IBM no período selecionado, com visões por produto, e por licença, subset e produto.",
-						"url": "https://10.221.70.14:9091/app/main#/dashboards/642332b3ca6751574c9d4a4b"
 					},
 					{
 						"title": "4B_Uso_Custos_IBM_Detalhado",
@@ -1952,6 +1957,19 @@
 						"url": "https://10.221.70.14:9091/app/main#/dashboards/655cb5e70f29d94700af4c91"
 					}
 				]
+			}
+		]
+	},
+	{
+		"title": "Performance",
+		"description": "",
+		"url": "",
+		"childrens": [
+			{
+				"title": "ECAPP",
+				"description": "Acesso ao Portal ECAPP",
+				"url": "http://10.221.70.14:7117/aurora/index.html",
+				"childrens": []
 			}
 		]
 	},
