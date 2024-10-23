@@ -376,10 +376,10 @@ export class HomePage {
         const txtValue = td.textContent || td.innerText;
         const hasUrl = tr[i].querySelector('a') !== null;
         if (txtValue.toLowerCase().indexOf(searchInput) > -1 && hasUrl) {
-          tr[i].style.display = ''; // Show the row
+          tr[i].style.display = ''; 
           anyVisible = true;
         } else {
-          tr[i].style.display = 'none'; // Hide the row
+          tr[i].style.display = 'none';
         }
       }
     }

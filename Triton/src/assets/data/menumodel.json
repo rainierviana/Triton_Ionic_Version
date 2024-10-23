@@ -611,12 +611,12 @@
                     "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
                     "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574a7e803d5da24ecc1d66d"
                   },
-				  {
+                  {
                     "title": "BROKER_NEGOCIAL_PROD",
                     "description": "Apresentar o consumo dos servidores Broker nos ambientes",
                     "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b231eb61ec26ec53b6af"
                   },
-				  {
+                  {
                     "title": "BROKER_SOCIAL_PROD",
                     "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
                     "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b30deb61ec26ec53b6db"
@@ -628,22 +628,22 @@
                 "description": "",
                 "url": "",
                 "childrens": [
-					{
-						"title": "BROKER_BANCARIO_NAO_PROD",
-						"description": "Apresentar o consumo dos servidores Broker nos ambientes.",
-						"url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b1dbeb61ec26ec53b698"
-					  },
-					  {
-						"title": "BROKER_NEGOCIAL_NAO_PROD",
-						"description": "Apresentar o consumo dos servidores Broker nos ambientes",
-						"url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b2aeeb61ec26ec53b6c5"
-					  },
-					  {
-						"title": "BROKER_SOCIAL_NAO_PROD",
-						"description": "Apresentar o consumo dos servidores Broker nos ambientes.",
-						"url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b4eceb61ec26ec53b70b"
-					  }
-				]
+                  {
+                    "title": "BROKER_BANCARIO_NAO_PROD",
+                    "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
+                    "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b1dbeb61ec26ec53b698"
+                  },
+                  {
+                    "title": "BROKER_NEGOCIAL_NAO_PROD",
+                    "description": "Apresentar o consumo dos servidores Broker nos ambientes",
+                    "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b2aeeb61ec26ec53b6c5"
+                  },
+                  {
+                    "title": "BROKER_SOCIAL_NAO_PROD",
+                    "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
+                    "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b4eceb61ec26ec53b70b"
+                  }
+                ]
               }
             ]
           },
@@ -1511,7 +1511,53 @@
               {
                 "title": "CPU PRODUÇÃO/NÃO PRODUÇÃO",
                 "description": "Apresenta os dashboards de produção/não produção.",
-                "url": "broker-prod.html"
+                "url": "",
+                "childrens":[
+                  {
+                    "title": "Broker Produção",
+                    "description": "",
+                    "url": "",
+                    "childrens": [
+                      {
+                        "title": "BROKER_BANCARIO_PROD",
+                        "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
+                        "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574a7e803d5da24ecc1d66d"
+                      },
+                      {
+                        "title": "BROKER_NEGOCIAL_PROD",
+                        "description": "Apresentar o consumo dos servidores Broker nos ambientes",
+                        "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b231eb61ec26ec53b6af"
+                      },
+                      {
+                        "title": "BROKER_SOCIAL_PROD",
+                        "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
+                        "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b30deb61ec26ec53b6db"
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Broker Não Produção",
+                    "description": "",
+                    "url": "",
+                    "childrens": [
+                      {
+                        "title": "BROKER_BANCARIO_NAO_PROD",
+                        "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
+                        "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b1dbeb61ec26ec53b698"
+                      },
+                      {
+                        "title": "BROKER_NEGOCIAL_NAO_PROD",
+                        "description": "Apresentar o consumo dos servidores Broker nos ambientes",
+                        "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b2aeeb61ec26ec53b6c5"
+                      },
+                      {
+                        "title": "BROKER_SOCIAL_NAO_PROD",
+                        "description": "Apresentar o consumo dos servidores Broker nos ambientes.",
+                        "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6574b4eceb61ec26ec53b70b"
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "title": "CPU",
