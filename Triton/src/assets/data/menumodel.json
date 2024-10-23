@@ -37,44 +37,34 @@
           {
             "title": "Activity_TDS",
             "description": "Apresenta o perfil de atividade de CPU dos servidores CICS do ambiente CAIXA.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b83cdce93cf25110a9460d",
+            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/635bea595f5d03803154ef07",
             "childrens": []
           },
           {
             "title": "CPU_Bancario",
             "description": "Apresenta o perfil de consumo de CPU dos servidores CICS do ambiente Bancário.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b8318de93cf25110a94528",
+            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6569cd2ba94f390f803e9682",
             "childrens": []
           },
           {
             "title": "CPU_Negocial",
             "description": "Apresenta o perfil de consumo de CPU dos servidores CICS do ambiente NEGOCIAL.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b8326de93cf25110a94545"
-          },
-          {
-            "title": "CICS_PLEXP",
-            "description": "Apresenta o perfil de consumo de CPU dos servidores CICS do ambiente Bancário.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b83affe93cf25110a945f2"
+            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64679fe7fba25c28f02bf4b4"
           },
           {
             "title": "CPU_SOCIAL",
             "description": "Apresenta o perfil de consumo de CPU dos servidores CICS do ambiente Social.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b6cf5de93cf25110a940f9"
+            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6467a38dfba25c28f02bf4d8"
           },
           {
             "title": "CICS_Activity",
             "description": "Apresenta as atividades das Regiões CICS na CAIXA.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b6cf5de93cf25110a940f9"
+            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/61f13d08a54ca90ef0331957"
           },
           {
             "title": "Report_Eficiencia",
             "description": "Apresenta a atividade e os índices de eficiência das transações dos últimos 7 dias.",
             "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b6ce6fe93cf25110a940ca"
-          },
-          {
-            "title": "TRN_Negocial_CEPTI240",
-            "description": "Acompanhamento de transações Negocial para CEPTI240.",
-            "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/64b6c98ce93cf25110a940b3"
           }
         ]
       },
