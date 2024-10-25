@@ -1,24 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-menu-button slot="start" class="menuButton"></ion-menu-button>
-    <div>
-      <img height="20em" />
-    </div>
+    <div><img height="20em" /></div>
     <ion-menu-button class="menuButton" fill="clear" slot="end" (click)="openEndMenu()"><ion-icon name="settings-outline"></ion-icon></ion-menu-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-menu contentId="main-content" auto-hide="on">
+  <ion-menu contentId="main-content">
     <ion-content>
-      <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()"
-        ><ion-icon name="home-outline"></ion-icon></ion-button>
+      <ion-button fill="clear" class="homeButton" (click)="homeButtonClicked()"><ion-icon name="home-outline"></ion-icon></ion-button>
       <br />
-      <ng-container *ngFor="let menuItem of menuData" class="optionList">
+      <ng-container *ngFor="let menuItem of menuData">
         <div>
-          <ion-button fill="clear" (click)="FillContent(menuItem)">
-            {{ menuItem.title }}
-          </ion-button>
+          <ion-button fill="clear" (click)="FillContent(menuItem)">{{ menuItem.title }}</ion-button>
         </div>
       </ng-container>
     </ion-content>
@@ -34,7 +29,6 @@
       </ng-container>
     </div>
     
-
     <div class="navButtons">
       <ion-button class="backButton" *ngIf="showBackButton" fill="clear" shape="round" (click)="goBack()"><ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon></ion-button>
       <ion-button class="forwardButton"  *ngIf="showForwardButton" fill="clear" shape="round" (click)="goForward()"><ion-icon slot="icon-only" name="arrow-forward-circle-outline"></ion-icon></ion-button>
@@ -51,7 +45,6 @@
     <p class="padding-small margin-large">{{ 'home.details' | translate }}</p>
     <br />
   </div>
-  
   
   <div *ngIf="noItemsFound" class="no-items-message">
     <p class="errorMessage">Nenhum Resultado Encontrado</p>

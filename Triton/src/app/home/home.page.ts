@@ -1,15 +1,14 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MenuController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Renderer2 } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomePage {
   // References
@@ -17,6 +16,8 @@ export class HomePage {
 
   private initialMainContentElements: any[] = [];
   public appConfig: any = {};
+  public sisenseDashboards: any[] = [];
+  public filteredSisenseDashboards: any[] = [];
 
   // State Variables
   searchTerm: string = '';
@@ -40,13 +41,36 @@ export class HomePage {
     public http: HttpClient,
     private menuCtrl: MenuController,
     private translate: TranslateService,
-    private renderer: Renderer2,
-    private alertController: AlertController
+    private renderer: Renderer2
   ) {
     translate.setDefaultLang('pt');
   }
 
-  // Initialization
+  Initialize() {
+    this.http.get('assets/data/menumodel.json').subscribe(
+      (data: any) => {
+        this.menuData = data;
+        this.filteredMenuData = data; // Initialize filtered data
+      },
+      (err) => {
+        console.error(
+          `status: ${err.status}, Status text: ${err.statusText}, Message: ${err.message}`
+        );
+      }
+    );
+    this.http.get('assets/data/sisensedashboards.json').subscribe(
+      (dash: any) => {
+        this.sisenseDashboards = dash;
+        this.filteredSisenseDashboards = dash; // Initialize filtered data
+      },
+      (err) => {
+        console.error(
+          `status: ${err.status}, Status text: ${err.statusText}, Message: ${err.message}`
+        );
+      }
+    );
+  }
+
   ngOnInit() {
     this.loadAppConfig();
     this.Initialize();
@@ -63,16 +87,16 @@ export class HomePage {
       this.breadcrumbs = JSON.parse(savedBreadcrumbs);
       this.navigationStack = JSON.parse(savedNavigationStack);
 
-    if (savedDarkMode !== null) {
-      this.darkMode = JSON.parse(savedDarkMode);
-      document.body.classList.toggle('dark-mode', this.darkMode); // Apply the dark mode based on the preference
-    }
+      if (savedDarkMode !== null) {
+        this.darkMode = JSON.parse(savedDarkMode);
+        document.body.classList.toggle('dark-mode', this.darkMode); // Apply the dark mode based on the preference
+      }
 
-    this.FillContent(item); // Restore the last content
-  } else if (savedDarkMode !== null) {
+      this.FillContent(item); // Restore the last content
+    } else if (savedDarkMode !== null) {
       this.darkMode = JSON.parse(savedDarkMode);
       document.body.classList.toggle('dark-mode', this.darkMode); // Apply the dark mode if no other state is saved
-  }
+    }
 
     setTimeout(() => {
       this.initialMainContentElements = Array.from(
@@ -81,20 +105,64 @@ export class HomePage {
     }, 0);
   }
 
+  // Data Initialization
+  loadAppConfig() {
+    this.http.get('assets/data/appconfig.json').subscribe((config: any) => {
+      this.appConfig = config;
+      this.applyAppConfig();
+    });
+  }
+
+  applyAppConfig() {
+    // Set the app title
+    document.title = this.appConfig.appTitle || 'Default App Title';
+
+    // Set the header image
+    const headerImageElement = document.querySelector('ion-toolbar img');
+    if (headerImageElement && this.appConfig.headerImage) {
+      headerImageElement.setAttribute('src', this.appConfig.headerImage);
+    }
+
+    // Set the default language
+    const language = this.appConfig.defaultLanguage || 'en';
+    this.translate.use(language);
+
+    // Set the footer text
+    const footerElement = document.querySelector('ion-footer p');
+    if (footerElement && this.appConfig.footerText) {
+      footerElement.textContent = this.appConfig.footerText;
+    }
+  }
+
+  handleItemClick(item: any) {
+    if (item.url) {
+      // Open the external link in a new browser tab
+      window.open(item.url, '_blank');
+    } else if (item.childrens && item.childrens.length > 0) {
+      // If there is no URL, load the child content
+      this.FillContent(item);
+    }
+  }
+
+  // Right Menu Controls
+  openEndMenu() {
+    this.menuCtrl.open('end');
+  }
+
   // Language Management
   toggleLanguage(language: string) {
     this.translate.use(language);
     localStorage.setItem('selectedLanguage', language); // Save the selected language to localStorage
   }
 
+  // Retrieve the saved language from localStorage
   setInitialLanguage() {
-    // Retrieve the saved language from localStorage or default to Portuguese
     const savedLanguage = localStorage.getItem('selectedLanguage') || 'pt';
     this.translate.use(savedLanguage);
   }
 
+  // Save language preference
   handleLanguageChange(language: string) {
-    // Save language preference
     localStorage.setItem('selectedLanguage', language);
     this.translate.use(language);
   }
@@ -104,30 +172,52 @@ export class HomePage {
     this.darkMode = event.detail.checked;
     document.body.classList.toggle('dark-mode', this.darkMode);
     localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
-  } 
-
-  // Menu Controls
-  openEndMenu() {
-    this.menuCtrl.open('end');
   }
 
-  async presentAlert() {
-    await this.menuCtrl.close(); // Close the menu
-    
-    const header = this.translate.instant('home.about');
-    const message = this.translate.instant('home.informationabout');
-    
-    const alert = await this.alertController.create({
-      header: header,
-      message: message,
-      buttons: ['OK'],
-      cssClass: 'custom-alert' // Add a custom class
-    });
-  
-    await alert.present();
+  navigateToBreadcrumb(index: number) {
+    // Update the navigation stack and breadcrumbs to the selected index
+    this.navigationStack = this.navigationStack.slice(0, index + 1);
+    this.breadcrumbs = this.breadcrumbs.slice(0, index + 1);
+
+    // Clear the main content area
+    this.mainContent.nativeElement.innerHTML = '';
+
+    // Render the selected breadcrumb's content
+    const selectedItem = this.navigationStack[this.navigationStack.length - 1];
+    this.renderItem(selectedItem, this.mainContent.nativeElement);
+
+    // Update navigation buttons visibility
+    this.showBackButton = true;
+    this.showForwardButton = false; // Clear the forward stack
+    this.forwardStack = [];
   }
-  
-  
+  // Search Bar
+  filterTable() {
+    const searchInput = (
+      document.getElementById('searchInput') as HTMLInputElement
+    ).value.toLowerCase();
+    const table = document.querySelector('table')!;
+    const tr = table.getElementsByTagName('tr');
+    let anyVisible = false;
+
+    for (let i = 0; i < tr.length; i++) {
+      const td = tr[i].getElementsByTagName('td')[0];
+      if (td) {
+        const txtValue = td.textContent || td.innerText;
+        const hasUrl = tr[i].querySelector('a') !== null;
+        if (txtValue.toLowerCase().indexOf(searchInput) > -1 && hasUrl) {
+          tr[i].style.display = '';
+          anyVisible = true;
+        } else {
+          tr[i].style.display = 'none';
+        }
+      }
+    }
+
+    // If no rows are visible, show the error message
+    this.noItemsFound = !anyVisible;
+  }
+
   // Content Management
   FillContent(item: any) {
     this.showSearchBar = !item.url;
@@ -156,55 +246,51 @@ export class HomePage {
     const newContent = document.createElement('div');
 
     const title = document.createElement('p');
+    title.classList.add('table-title');
+
     title.textContent = item.title;
-    title.style.margin = '0';
-    title.style.paddingTop = '0.5em';
-    title.style.paddingBottom = '1em';
-    title.style.textDecoration = 'none';
-    title.style.cursor = 'default';
-    title.style.textAlign = 'left';
-    title.style.fontFamily = 'Futura-Bold';
 
     newContent.appendChild(title);
     parentElement.appendChild(newContent);
 
     if (item.childrens && item.childrens.length > 0) {
       const childTable = document.createElement('table');
-      childTable.style.width = '100%';
-      childTable.style.transition = '0.2s';
-      childTable.style.overflowY = 'auto';
-      childTable.style.display = 'block';
+      childTable.classList.add('child-table');
 
+      //Table´s height set according to the user's screen height
       const tableHeight = window.innerHeight * 0.5;
       childTable.style.maxHeight = `${tableHeight}px`;
 
       const tableWrapper = document.createElement('div');
+      tableWrapper.classList.add('table-wrapper');
       tableWrapper.style.maxHeight = `${tableHeight}px`;
-      tableWrapper.style.overflowY = 'auto';
-      tableWrapper.style.overflowX = 'hidden';
-      tableWrapper.style.display = 'block';
+
       tableWrapper.appendChild(childTable);
 
       item.childrens.forEach((subItem: any) => {
         const childRow = document.createElement('tr');
 
         const childCol1 = document.createElement('td');
+        childCol1.classList.add('child-col-1');
+
         const childUrl = document.createElement('a');
         childUrl.href = subItem.url;
         childUrl.textContent = subItem.title;
-        childUrl.style.textDecoration = 'none';
-        childUrl.style.color = 'var(--content-table-title)';
-        childUrl.style.textAlign = 'left';
-        childCol1.style.textAlign = 'left';
-        childCol1.style.paddingLeft = '1.5em';
+        childUrl.classList.add('child-url');
 
         if (subItem.url) {
           // Set the target attribute to "_blank" to open in a new tab
           childUrl.target = '_blank';
-        } else {
-          childUrl.style.cursor = 'pointer';
+
           childUrl.addEventListener('click', (event) => {
             event.preventDefault();
+            console.log(subItem.title, subItem.url);
+            this.handleItemClick(subItem);
+          });
+        } else {
+          childUrl.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log(subItem.title, subItem.description);
             this.FillContent(subItem);
           });
           childCol1.style.paddingBottom = '1em';
@@ -215,10 +301,7 @@ export class HomePage {
 
         const childCol2 = document.createElement('td');
         childCol2.textContent = subItem.description;
-        childCol2.style.padding = '1em';
-        childCol2.style.cursor = 'default';
-        childCol2.style.textAlign = 'left';
-        childCol2.style.color = 'var(--content-table-description)';
+        childCol2.classList.add('child-col-2');
 
         childRow.appendChild(childCol1);
         childRow.appendChild(childCol2);
@@ -227,16 +310,6 @@ export class HomePage {
       });
 
       parentElement.appendChild(tableWrapper);
-    }
-  }
-
-  handleItemClick(item: any) {
-    if (item.url) {
-      // Open the external link in a new browser tab
-      window.open(item.url, '_blank');
-    } else if (item.childrens && item.childrens.length > 0) {
-      // If there is no URL, load the child content
-      this.FillContent(item);
     }
   }
 
@@ -300,91 +373,4 @@ export class HomePage {
     this.filteredData = [];
   }
 
-  navigateToBreadcrumb(index: number) {
-    // Update the navigation stack and breadcrumbs to the selected index
-    this.navigationStack = this.navigationStack.slice(0, index + 1);
-    this.breadcrumbs = this.breadcrumbs.slice(0, index + 1);
-
-    // Clear the main content area
-    this.mainContent.nativeElement.innerHTML = '';
-
-    // Render the selected breadcrumb's content
-    const selectedItem = this.navigationStack[this.navigationStack.length - 1];
-    this.renderItem(selectedItem, this.mainContent.nativeElement);
-
-    // Update navigation buttons visibility
-    this.showBackButton = true;
-    this.showForwardButton = false; // Clear the forward stack
-    this.forwardStack = [];
-  }
-
-  // Data Initialization
-  loadAppConfig() {
-    this.http.get('assets/data/appconfig.json').subscribe((config: any) => {
-      this.appConfig = config;
-      this.applyAppConfig();
-    });
-  }
-
-  applyAppConfig() {
-    // Set the app title
-    document.title = this.appConfig.appTitle || 'Default App Title';
-
-    // Set the header image
-    const headerImageElement = document.querySelector('ion-toolbar img');
-    if (headerImageElement && this.appConfig.headerImage) {
-      headerImageElement.setAttribute('src', this.appConfig.headerImage);
-    }
-
-    // Set the default language
-    const language = this.appConfig.defaultLanguage || 'en';
-    this.translate.use(language);
-
-    // Set the footer text
-    const footerElement = document.querySelector('ion-footer p');
-    if (footerElement && this.appConfig.footerText) {
-      footerElement.textContent = this.appConfig.footerText;
-    }
-  }
-
-  Initialize() {
-    this.http.get('assets/data/menumodel.json').subscribe(
-      (data: any) => {
-        this.menuData = data;
-        this.filteredMenuData = data; // Initialize filtered data
-      },
-      (err) => {
-        console.error(
-          `status: ${err.status}, Status text: ${err.statusText}, Message: ${err.message}`
-        );
-      }
-    );
-  }
-
-  // Search Bar
-  filterTable() {
-    const searchInput = (
-      document.getElementById('searchInput') as HTMLInputElement
-    ).value.toLowerCase();
-    const table = document.querySelector('table')!;
-    const tr = table.getElementsByTagName('tr');
-    let anyVisible = false;
-
-    for (let i = 0; i < tr.length; i++) {
-      const td = tr[i].getElementsByTagName('td')[0];
-      if (td) {
-        const txtValue = td.textContent || td.innerText;
-        const hasUrl = tr[i].querySelector('a') !== null;
-        if (txtValue.toLowerCase().indexOf(searchInput) > -1 && hasUrl) {
-          tr[i].style.display = ''; 
-          anyVisible = true;
-        } else {
-          tr[i].style.display = 'none';
-        }
-      }
-    }
-
-    // If no rows are visible, show the error message
-    this.noItemsFound = !anyVisible;
-  }
 }

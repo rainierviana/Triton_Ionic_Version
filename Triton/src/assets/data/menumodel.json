@@ -41,6 +41,12 @@
             "childrens": []
           },
           {
+            "title": "Activity_TDS",
+            "description": "Apresenta o perfil de atividade de CPU dos servidores CICS do ambiente CAIXA.",
+            "url": "dash:Activity_TDS",
+            "childrens": []
+          },
+          {
             "title": "CPU_Bancario",
             "description": "Apresenta o perfil de consumo de CPU dos servidores CICS do ambiente Bancário.",
             "url": "http://dadnpaplnt005.intra.caixa.gov.br:9091/app/main#/dashboards/6569cd2ba94f390f803e9682",
@@ -1872,29 +1878,48 @@
         "url": "https://caixa.sharepoint.com/sites/CETAD10/Manuais%20e%20Treinamentos/Forms/AllItems.aspx?viewid=96fb4b1b%2D108a%2D41ca%2Dbf92%2Dd00491273460"
       },
       {
-        "title": "Boletim Diário",
-        "description": "Apresenta toda a documentação de Boletim Diário.",
-        "url": "https://caixa.sharepoint.com/sites/CETAD10/Boletim%20dirio/Forms/AllItems.aspx"
+        "title": "Boletins",
+        "description": "Lista de documentação de Boletins",
+        "url": "",
+        "childrens": [
+          {
+            "title": "Boletim Diário",
+            "description": "Apresenta toda a documentação de Boletim Diário.",
+            "url": "https://caixa.sharepoint.com/sites/CETAD10/Boletim%20dirio/Forms/AllItems.aspx"
+          },
+          {
+            "title": "Boletim Mensal",
+            "description": "Apresenta toda a documentação de Boletim Mensal.",
+            "url": "https://caixa.sharepoint.com/sites/CETAD10/Boletim%20Mensal/Forms/AllItems.aspx"
+          }
+        ]
       },
       {
-        "title": "Boletim Mensal",
-        "description": "Apresenta toda a documentação de Boletim Mensal.",
-        "url": "https://caixa.sharepoint.com/sites/CETAD10/Boletim%20Mensal/Forms/AllItems.aspx"
+        "title": "Relatórios",
+        "description": "Lista de documentação dos Relatórios",
+        "url": "",
+        "childrens": [
+          {
+            "title": "Relatório Diário",
+            "description": "Apresenta toda a documentação de Relatório Diário.",
+            "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrio%20Dirio/Forms/AllItems.aspx"
+          },
+          {
+            "title": "Relatório Semanal",
+            "description": "Apresenta toda a documentação de Relatório Semanal.",
+            "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrio%20semanal/Forms/AllItems.aspx"
+          },
+          {
+            "title": "Relatório Mensal",
+            "description": "Apresenta toda a documentação de Relatório Mensal.",
+            "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrio%20mensal/Forms/AllItems.aspx"
+          }
+        ]
       },
       {
-        "title": "Relatório Diário",
-        "description": "Apresenta toda a documentação de Relatório Diário.",
-        "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrio%20Dirio/Forms/AllItems.aspx"
-      },
-      {
-        "title": "Relatório Semanal",
-        "description": "Apresenta toda a documentação de Relatório Semanal.",
-        "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrio%20semanal/Forms/AllItems.aspx"
-      },
-      {
-        "title": "Relatório Mensal",
-        "description": "Apresenta toda a documentação de Relatório Mensal.",
-        "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrio%20mensal/Forms/AllItems.aspx"
+        "title": "Eventos Relevantes",
+        "description": "Apresenta toda a documentação de Eventos Relevantes.",
+        "url": "https://caixa.sharepoint.com/sites/CETAD10/Relatrios%20capacidade/Forms/AllItems.aspx?id=%2Fsites%2FCETAD10%2FRelatrios%20capacidade%2FRel%20Armazenamento%20Mainframe%2FEventos%20Relevantes&viewid=a404d207%2D11af%2D47a9%2D9751%2D3b6c8a3d5ac5"
       }
     ]
   },
